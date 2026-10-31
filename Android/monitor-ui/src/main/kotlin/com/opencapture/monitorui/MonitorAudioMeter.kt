@@ -21,7 +21,7 @@ fun MonitorAudioMeter(left: Double, leftPeak: Double, right: Double, rightPeak: 
     orientation: MonitorAudioOrientation, showDB: Boolean, modifier: Modifier = Modifier) {
     val measurer = rememberTextMeasurer()
     Canvas(modifier.semantics {
-        contentDescription = "Audio, left ${MonitorAudioReadout.label(left)} dBFS, right ${MonitorAudioReadout.label(right)} dBFS"
+        contentDescription = operatorFormat("Audio, left %1\$s dBFS, right %2\$s dBFS", MonitorAudioReadout.label(left), MonitorAudioReadout.label(right))
     }) {
         val horizontal = orientation == MonitorAudioOrientation.HORIZONTAL
         val green = Color(0xFF56EB84)

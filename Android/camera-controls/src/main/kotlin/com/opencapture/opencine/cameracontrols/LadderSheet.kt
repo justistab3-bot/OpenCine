@@ -1,5 +1,7 @@
 package com.opencapture.opencine.cameracontrols
 
+import com.opencapture.monitorui.operatorText
+import com.opencapture.monitorui.operatorFormat
 import android.graphics.Paint as AndroidPaint
 import android.graphics.Rect as AndroidRect
 import android.graphics.Typeface
@@ -412,7 +414,7 @@ private fun StepButton(step: LadderStep, enabled: Boolean, onStep: (LadderStep) 
         verticalArrangement = Arrangement.Center,
     ) {
         Text(
-            step.label,
+            operatorText(step.label),
             style = LiveType.ui(11f, FontWeight.SemiBold),
             color = if (step.selected) LiveDesign.accent else LiveDesign.text,
             maxLines = 1,
@@ -446,7 +448,7 @@ private fun TintPad(
     val shown = labelOf(CaptureTint(gm, if (horizontal) ab else null, range)).ifBlank { " " }
     Row(
         Modifier.fillMaxWidth().wrapContentHeight().alpha(if (enabled) 1f else 0.45f)
-            .semantics { contentDescription = "Tint $shown" },
+            .semantics { contentDescription = operatorFormat("Tint %1\$s", shown) },
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(20.dp),
     ) {
@@ -498,7 +500,7 @@ private fun TintPad(
         }
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             Text(
-                shown,
+                operatorText(shown),
                 style = LiveType.ui(17f, FontWeight.SemiBold),
                 color = if (shown == "Neutral") LiveDesign.muted else LiveDesign.accent,
                 maxLines = 1,

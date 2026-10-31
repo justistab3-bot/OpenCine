@@ -130,7 +130,7 @@ internal fun MonitorSetupChips(
                         onLongClickLabel = "Setup options",
                         onLongClick = if (onRenameSetup != null || setup.canForget && onForgetSetup != null) ({ menu = true }) else null,
                     )
-                    .semantics { contentDescription = "Connect $cameraName over ${setup.title}" }
+                    .semantics { contentDescription = operatorFormat("Connect %1\$s over %2\$s", cameraName, setup.title) }
                     .testTag("cameras.setup.${setup.kind ?: setup.id}"),
                 contentAlignment = Alignment.Center,
             ) {
@@ -147,13 +147,13 @@ internal fun MonitorSetupChips(
                 DropdownMenu(expanded = menu, onDismissRequest = { menu = false }) {
                     if (onRenameSetup != null) {
                         DropdownMenuItem(
-                            text = { Text("Rename setup") }, enabled = enabled,
+                            text = { Text(operatorText("Rename setup")) }, enabled = enabled,
                             onClick = { menu = false; if (enabled) onRenameSetup(setup) },
                         )
                     }
                     if (setup.canForget && onForgetSetup != null) {
                         DropdownMenuItem(
-                            text = { Text("Forget ${setup.title} setup", color = MonitorPalette.recording) }, enabled = enabled,
+                            text = { Text(operatorFormat("Forget %1\$s setup", setup.title), color = MonitorPalette.recording) }, enabled = enabled,
                             onClick = { menu = false; if (enabled) onForgetSetup(setup) },
                         )
                     }
@@ -165,7 +165,7 @@ internal fun MonitorSetupChips(
             Row(
                 Modifier.heightIn(min = 44.dp)
                     .clickable(enabled = enabled, role = Role.Button, onClick = onAddSetup)
-                    .semantics { contentDescription = "Add a setup for $cameraName" }
+                    .semantics { contentDescription = operatorFormat("Add a setup for %1\$s", cameraName) }
                     .testTag("cameras.addSetup"),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
@@ -182,7 +182,7 @@ internal fun MonitorSetupChips(
                     horizontalArrangement = Arrangement.spacedBy(6.dp),
                 ) {
                     MonitorIcon(MonitorIcon.PLUS, null, Modifier.size(11.dp), tint = MonitorPalette.muted)
-                    Text("Add setup", color = MonitorPalette.muted, style = MonitorTypography.text(11f, FontWeight.SemiBold))
+                    Text(operatorText("Add setup"), color = MonitorPalette.muted, style = MonitorTypography.text(11f, FontWeight.SemiBold))
                 }
             }
         }
@@ -227,15 +227,15 @@ internal fun MonitorConnectFailureBanner(
     ) {
         MonitorIcon(MonitorIcon.TRIANGLE_ALERT, null, Modifier.size(20.dp), tint = warning)
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(5.dp)) {
-            Text(failure.title, color = MonitorPalette.text, style = MonitorTypography.text(13.5f, FontWeight.SemiBold))
-            Text(failure.message, color = MonitorPalette.secondary, style = MonitorTypography.text(11.5f))
+            Text(operatorText(failure.title), color = MonitorPalette.text, style = MonitorTypography.text(13.5f, FontWeight.SemiBold))
+            Text(operatorText(failure.message), color = MonitorPalette.secondary, style = MonitorTypography.text(11.5f))
             failure.link?.let { link ->
                 Box(
                     Modifier.heightIn(min = 44.dp)
                         .clickable(enabled = enabled && onAction != null, role = Role.Button) { onAction?.invoke(link.id) },
                     contentAlignment = Alignment.CenterStart,
                 ) {
-                    Text(link.title, color = MonitorPalette.accent, style = MonitorTypography.text(12f, FontWeight.SemiBold))
+                    Text(operatorText(link.title), color = MonitorPalette.accent, style = MonitorTypography.text(12f, FontWeight.SemiBold))
                 }
             }
         }

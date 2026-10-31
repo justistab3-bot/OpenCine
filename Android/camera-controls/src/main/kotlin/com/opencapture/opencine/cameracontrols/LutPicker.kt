@@ -1,5 +1,7 @@
 package com.opencapture.opencine.cameracontrols
 
+import com.opencapture.monitorui.operatorFormat
+import com.opencapture.monitorui.operatorText
 import com.opencapture.opencine.appkit.LocalOperatorHaptics
 import com.opencapture.monitorui.MonitorLabelWheel
 import com.opencapture.monitorui.MonitorTab
@@ -161,13 +163,13 @@ internal fun lutPickerLibraries(
             caption = cameraCaption(copy, selection, colorMode, profile, isPhoto),
         ),
         LutPickerLibrary(
-            title = "Creative", entries = creativeEntries.map(::entry),
+            title = operatorText("Creative"), entries = creativeEntries.map(::entry),
             isCurrent = category == LutCategory.CREATIVE, selectedId = selected(creativeEntries),
             onSelect = pick, representative = representative(creativeEntries, "creativeMono"),
             caption = creativeCaption(copy, selection, colorMode, profile, isPhoto),
         ),
         LutPickerLibrary(
-            title = "Custom", entries = customEntries.map(::entry), layout = LutPickerLayout.FILES,
+            title = operatorText("Custom"), entries = customEntries.map(::entry), layout = LutPickerLayout.FILES,
             isCurrent = category == LutCategory.CUSTOM, selectedId = selected(customEntries),
             onSelect = pick, empty = LutPickerEmpty(hint = copy.customHint), onImport = onImport,
             onDelete = { look -> customEntries.firstOrNull { it.id == look.id }?.let(onClear) },
@@ -324,7 +326,7 @@ fun LUTPicker(
                 Spacer(Modifier.weight(1f))
                 if (onClose != null) {
                     Text(
-                        "Done",
+                        operatorText("Done"),
                         color = LiveDesign.accent,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.SemiBold,
@@ -342,9 +344,9 @@ fun LUTPicker(
     if (deletionError != null) {
         AlertDialog(
             onDismissRequest = { deletionError = null },
-            title = { Text("Couldn’t Delete LUT") },
+            title = { Text(operatorText("Could not delete LUT")) },
             text = { Text(deletionError ?: "The LUT could not be deleted.") },
-            confirmButton = { TextButton(onClick = { deletionError = null }) { Text("OK") } },
+            confirmButton = { TextButton(onClick = { deletionError = null }) { Text(operatorText("OK")) } },
         )
     }
 }
@@ -435,17 +437,17 @@ fun LUTPicker(
     pendingDeletion?.let { (library, look) ->
         AlertDialog(
             onDismissRequest = { pendingDeletion = null },
-            title = { Text("Clear ${look.title}?") },
-            text = { Text("This removes the stored LUT from this device. This action cannot be undone.") },
+            title = { Text(operatorFormat("Clear %1\$s?", look.title)) },
+            text = { Text(operatorText("This removes the stored LUT from this device. This action cannot be undone.")) },
             confirmButton = {
                 TextButton(
                     onClick = {
                         pendingDeletion = null
                         libraries.firstOrNull { it.title == library }?.onDelete?.invoke(look)
                     }
-                ) { Text("Clear LUT", color = LiveDesign.destructive) }
+                ) { Text(operatorText("Clear LUT"), color = LiveDesign.destructive) }
             },
-            dismissButton = { TextButton(onClick = { pendingDeletion = null }) { Text("Cancel") } },
+            dismissButton = { TextButton(onClick = { pendingDeletion = null }) { Text(operatorText("Cancel")) } },
         )
     }
 }
@@ -558,7 +560,7 @@ private fun FilesTab(library: LutPickerLibrary, onDelete: (LutPickerEntry) -> Un
                     .padding(vertical = 8.dp),
                 contentAlignment = Alignment.Center,
             ) {
-                Text("Import .cube", color = LiveDesign.text, fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
+                Text(operatorText("Import .cube"), color = LiveDesign.text, fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
             }
             Spacer(Modifier.height(6.dp))
         }
@@ -603,7 +605,7 @@ private fun FilesTab(library: LutPickerLibrary, onDelete: (LutPickerEntry) -> Un
                                     .clickable { onDelete(entry) }
                                     .padding(horizontal = 8.dp, vertical = 6.dp),
                             ) {
-                                Text("Clear", color = LiveDesign.destructive, fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+                                Text(operatorText("Clear"), color = LiveDesign.destructive, fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
                             }
                         }
                     }
@@ -620,13 +622,13 @@ fun LUTExposureCompensationBar(stops: Double, onChange: (Double) -> Unit,
     modifier: Modifier = Modifier) {
     Column(modifier.fillMaxWidth()) {
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-            Text("Exposure", style = LiveType.ui(11f, FontWeight.Medium), color = LiveDesign.text)
+            Text(operatorText("Exposure"), style = LiveType.ui(11f, FontWeight.Medium), color = LiveDesign.text)
             Spacer(Modifier.weight(1f))
             Text(MonitorLUTExposureCompensation.label(stops) + " EV", style = LiveType.ui(11f, FontWeight.Medium),
                 color = LiveDesign.muted)
         }
         com.opencapture.monitorui.MonitorSlider(stops.toFloat(), -3f..3f,
-            Modifier.semantics { contentDescription = "Exposure compensation in stops" }) {
+            Modifier.semantics { contentDescription = operatorText("Exposure compensation in stops") }) {
             val next = MonitorLUTExposureCompensation.snap(it.toDouble())
             if (next != stops) onChange(next)
         }
@@ -651,7 +653,7 @@ fun LUTSplitComparisonBar(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(10.dp),
         ) {
-            Text("Split comparison", style = LiveType.ui(11f, FontWeight.Medium), color = LiveDesign.text)
+            Text(operatorText("Split comparison"), style = LiveType.ui(11f, FontWeight.Medium), color = LiveDesign.text)
             Spacer(Modifier.weight(1f))
             Row(
                 Modifier.clip(RoundedCornerShape(50))

@@ -223,4 +223,4 @@ internal fun stationText(english: String, language: CopyLanguage): String =
     STATION_CATALOG.text(english, language)
 
 /** [english] in the operator's language, for copy built outside a composable. */
-internal fun stationText(english: String): String = STATION_CATALOG.text(english, CopyLanguage.preferred())
+internal fun stationText(english: String): String = STATION_CATALOG.text(english, CopyLanguage.preferred()).let { if (it == english) com.opencapture.monitorui.operatorText(english) else it }

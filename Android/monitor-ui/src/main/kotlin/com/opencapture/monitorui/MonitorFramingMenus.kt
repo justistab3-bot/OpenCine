@@ -121,7 +121,7 @@ fun MonitorDesqueezeMenu(preset: MonitorDesqueezePreset, custom: Boolean, factor
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                 Slider(value = factor.toFloat(), onValueChange = { onFactor(it.toDouble()) },
                     valueRange = 1f..2f, steps = 99, modifier = Modifier.weight(1f).semantics {
-                        contentDescription = "Anamorphic desqueeze custom ratio"
+                        contentDescription = operatorText("Anamorphic desqueeze custom ratio")
                         stateDescription = MonitorAnamorphicDesqueeze.label(factor)
                     })
                 Text(MonitorAnamorphicDesqueeze.label(factor), style = MonitorTypography.text(12f, FontWeight.Medium),

@@ -267,7 +267,7 @@ fun MonitorCatalogHeader(title: String, subtitle: String, compact: Boolean, sort
                     )
                     .combinedClickable(role = Role.Button, onClick = onFilter)
                     .semantics {
-                        contentDescription = "Filter library"
+                        contentDescription = operatorText("Filter library")
                         selected = filterActive
                     }
                     .padding(horizontal = 9.dp),

@@ -1,5 +1,6 @@
 package com.opencapture.monitorui.settings
 
+import com.opencapture.monitorui.operatorText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.contentDescription
@@ -16,7 +17,7 @@ public fun MonitorCacheSettings(
     MonitorSettingsRowCard {
         if (cacheOriginals != null && onCacheOriginals != null) {
             MonitorSettingsSwitchInlineRow(
-                title = "Full Resolution Caching", help = cacheHelp,
+                title = operatorText("Full Resolution Caching"), help = cacheHelp,
                 showTopDivider = false, isOn = cacheOriginals,
             ) { feedback(); onCacheOriginals(!cacheOriginals) }
         }
@@ -37,7 +38,7 @@ public fun MonitorAppInformationSettings(
     theme: String, protocolName: String, version: String,
     themeHelp: String, protocolHelp: String, versionHelp: String,
 ) {
-    MonitorSettingsRowCard(title = "App Information") {
+    MonitorSettingsRowCard(title = operatorText("App Information")) {
         MonitorSettingsInlineRow("Theme", themeHelp, showTopDivider = false) { MonitorSettingsValueText(theme) }
         MonitorSettingsInlineRow("Protocol Implementation", protocolHelp) { MonitorSettingsValueText(protocolName) }
         MonitorSettingsInlineRow("App Version", versionHelp) { MonitorSettingsValueText(version) }
@@ -51,29 +52,29 @@ public fun MonitorProjectLegalSettings(
     source: () -> Unit, privacy: () -> Unit, terms: () -> Unit,
     licenses: (() -> Unit)? = null, notice: (() -> Unit)? = null,
 ) {
-    MonitorSettingsRowCard(title = "Project & Legal") {
+    MonitorSettingsRowCard(title = operatorText("Project & Legal")) {
         MonitorSettingsInlineRow("Source Code", sourceHelp, showTopDivider = false) {
             MonitorSettingsActionPill("Open", onClick = source,
-                modifier = Modifier.semantics { contentDescription = "Open Source Code" })
+                modifier = Modifier.semantics { contentDescription = operatorText("Open Source Code") })
         }
         MonitorSettingsInlineRow("Privacy", "What this app stores on this phone.") {
             MonitorSettingsActionPill("Open", onClick = privacy,
-                modifier = Modifier.semantics { contentDescription = "Open Privacy Policy" })
+                modifier = Modifier.semantics { contentDescription = operatorText("Open Privacy Policy") })
         }
         MonitorSettingsInlineRow("Terms", termsHelp) {
             MonitorSettingsActionPill("Open", onClick = terms,
-                modifier = Modifier.semantics { contentDescription = "Open Terms of Use" })
+                modifier = Modifier.semantics { contentDescription = operatorText("Open Terms of Use") })
         }
         licenses?.let { action ->
             MonitorSettingsInlineRow("Licenses", "Apache 2.0 and third-party notices.") {
                 MonitorSettingsActionPill("Open", onClick = action,
-                    modifier = Modifier.semantics { contentDescription = "Open Licenses" })
+                    modifier = Modifier.semantics { contentDescription = operatorText("Open Licenses") })
             }
         }
         notice?.let { action ->
             MonitorSettingsInlineRow("NOTICE", "Attribution shipped with the app.") {
                 MonitorSettingsActionPill("Open", onClick = action,
-                    modifier = Modifier.semantics { contentDescription = "Open NOTICE" })
+                    modifier = Modifier.semantics { contentDescription = operatorText("Open NOTICE") })
             }
         }
     }

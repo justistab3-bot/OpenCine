@@ -1,5 +1,6 @@
 package com.opencapture.monitorui.settings
 
+import com.opencapture.monitorui.operatorText
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -93,7 +94,7 @@ fun <Value> MonitorSettingsChoices(
                     contentAlignment = Alignment.Center,
                 ) {
                     Text(
-                        title(option),
+                        operatorText(title(option)),
                         style = tuningTextStyle(labelSize, if (active) FontWeight.SemiBold else FontWeight.Medium),
                         color = if (active) { if (accentSelection) Color(0xFF08191F) else MonitorPalette.text } else MonitorPalette.muted,
                         maxLines = 1,

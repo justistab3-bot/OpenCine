@@ -212,7 +212,7 @@ fun MonitorPageHeading(title: String, kicker: String) {
         // iOS `MonitorPageHeading` uppercases the brand line.
         Text(if (MonitorIosParity.enabled) kicker.uppercase() else kicker, color = MonitorPalette.accent,
             style = MonitorTypography.text(8.5f, FontWeight.Bold).copy(letterSpacing = 1.7.sp), maxLines = 1)
-        Text(title, color = MonitorPalette.text,
+        Text(operatorText(title), color = MonitorPalette.text,
             style = MonitorTypography.text(MonitorLayoutPolicy.cameraPageTitleSize(tablet), FontWeight.SemiBold)
                 .copy(letterSpacing = (-0.2).sp),
             maxLines = 1, overflow = TextOverflow.Ellipsis)

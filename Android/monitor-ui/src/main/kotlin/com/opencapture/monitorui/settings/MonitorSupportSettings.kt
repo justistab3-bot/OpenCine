@@ -1,5 +1,6 @@
 package com.opencapture.monitorui.settings
 
+import com.opencapture.monitorui.operatorText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
@@ -24,7 +25,7 @@ public fun MonitorSupportSettings(
     reportHelp: String = "Tell us what happened in the app. Choose whether to include technical details and an email for a reply.",
     reportActionTitle: String = "Open", actions: List<MonitorSupportAction> = emptyList(),
 ) {
-    MonitorSettingsRowCard(title = "Help & Feedback") {
+    MonitorSettingsRowCard(title = operatorText("Help & Feedback")) {
         MonitorSettingsInlineRow(reportTitle, reportHelp, showTopDivider = false) {
             MonitorSettingsActionPill(reportActionTitle, onClick = report,
                 modifier = Modifier.testTag("support.report.open").semantics { contentDescription = reportTitle })
@@ -68,7 +69,7 @@ public fun MonitorDiagnosticSettings(
     expanded: Boolean, onExpanded: (Boolean) -> Unit, deleteHelp: String,
     save: () -> Unit, delete: () -> Unit,
 ) {
-    MonitorSettingsGroupCard(title = "Diagnostic options", caption = "Save or remove reports on this phone",
+    MonitorSettingsGroupCard(title = operatorText("Diagnostic options"), caption = operatorText("Save or remove reports on this phone"),
         expanded = expanded, onExpandToggle = { onExpanded(!expanded) }) {
         MonitorSettingsInlineRow("Save diagnostic report", "Keep a copy or share it with support.",
             showTopDivider = false) { MonitorSettingsActionPill("Save", onClick = save) }

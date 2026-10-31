@@ -96,7 +96,7 @@ fun MonitorMediaDeliveryPanel(
                         MonitorIcon(MonitorIcon.FOLDER, null, Modifier.size(24.dp), MonitorPalette.muted)
                         Text(title, Modifier.weight(1f), style = MonitorTypography.text(14f, FontWeight.SemiBold),
                             color = MonitorPalette.muted, maxLines = 1, overflow = TextOverflow.Ellipsis)
-                        Text("Coming soon", style = MonitorTypography.text(11f), color = MonitorPalette.muted)
+                        Text(operatorText("Coming soon"), style = MonitorTypography.text(11f), color = MonitorPalette.muted)
                     }
                 }
             } else {
@@ -123,22 +123,22 @@ fun MonitorMediaDeliveryPanel(
     Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
         if (value.step == MonitorMediaDeliveryValue.Step.DESTINATION) {
             MonitorIcon(MonitorIcon.SHARE, null, Modifier.size(13.dp), MonitorPalette.text)
-            Text("SHARE", style = MonitorTypography.text(9f, FontWeight.SemiBold), color = MonitorPalette.text)
+            Text(operatorText("SHARE"), style = MonitorTypography.text(9f, FontWeight.SemiBold), color = MonitorPalette.text)
             Spacer(Modifier.weight(1f))
         } else {
             Row(Modifier.monitorChromeClickable { action(MonitorMediaDeliveryValue.Action.Back) }.testTag("monitor.share.back"),
                 verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                 MonitorIcon(MonitorIcon.CHEVRON_LEFT, null, Modifier.size(12.dp), MonitorPalette.accent)
-                Text("Back", style = MonitorTypography.text(12.5f, FontWeight.SemiBold), color = MonitorPalette.accent)
+                Text(operatorText("Back"), style = MonitorTypography.text(12.5f, FontWeight.SemiBold), color = MonitorPalette.accent)
             }
             Column(Modifier.weight(1f)) {
                 Text(value.title, style = MonitorTypography.text(12.5f, FontWeight.SemiBold), color = MonitorPalette.text)
-                Text("Options", style = MonitorTypography.text(11f), color = MonitorPalette.muted)
+                Text(operatorText("Options"), style = MonitorTypography.text(11f), color = MonitorPalette.muted)
             }
         }
         Box(Modifier.size(30.dp).clip(CircleShape).monitorMaterial(MonitorMaterial.Delivery, CircleShape)
             .monitorChromeClickable { action(MonitorMediaDeliveryValue.Action.Close) }
-            .semantics { contentDescription = "Close" }.testTag("monitor.share.close"), contentAlignment = Alignment.Center) {
+            .semantics { contentDescription = operatorText("Close") }.testTag("monitor.share.close"), contentAlignment = Alignment.Center) {
             MonitorIcon(MonitorIcon.X, null, Modifier.size(11.4.dp), MonitorPalette.text)
         }
     }
@@ -156,7 +156,7 @@ fun MonitorMediaDeliveryPanel(
             is MonitorMediaDeliveryValue.Service.Projects -> {
                 DeliverySectionHeader(service.heading)
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                    Text("Project", style = MonitorTypography.text(14f, FontWeight.SemiBold), color = MonitorPalette.text)
+                    Text(operatorText("Project"), style = MonitorTypography.text(14f, FontWeight.SemiBold), color = MonitorPalette.text)
                     MonitorSettingsHelpBadge(service.help)
                 }
                 service.signInNotice?.let { Text(it, style = MonitorTypography.text(12f), color = MonitorPalette.muted) }
@@ -164,7 +164,7 @@ fun MonitorMediaDeliveryPanel(
                     service.loading -> DeliveryBusy("Loading projects…")
                     service.error != null -> {
                         Text(service.error, style = MonitorTypography.text(12f), color = MonitorPalette.accent)
-                        Text("Retry", style = MonitorTypography.text(13f, FontWeight.SemiBold), color = MonitorPalette.accent,
+                        Text(operatorText("Retry"), style = MonitorTypography.text(13f, FontWeight.SemiBold), color = MonitorPalette.accent,
                             modifier = Modifier.monitorChromeClickable { action(MonitorMediaDeliveryValue.Action.RetryProjects) })
                     }
                     service.choices != null -> {
@@ -179,7 +179,7 @@ fun MonitorMediaDeliveryPanel(
                                 MonitorIcon(MonitorIcon.CHEVRONS_UP_DOWN, null, Modifier.size(11.dp), MonitorPalette.muted)
                             }
                             DropdownMenu(expanded, onDismissRequest = { expanded = false }) {
-                                if (service.choices.isEmpty()) DropdownMenuItem(text = { Text("No projects") }, onClick = {}, enabled = false)
+                                if (service.choices.isEmpty()) DropdownMenuItem(text = { Text(operatorText("No projects")) }, onClick = {}, enabled = false)
                                 service.choices.forEach { choice ->
                                     DropdownMenuItem(text = { Text(choice.label) }, onClick = {
                                         expanded = false; action(MonitorMediaDeliveryValue.Action.Selection(MonitorMediaDeliveryValue.Selection.PROJECT, choice.id))
@@ -187,7 +187,7 @@ fun MonitorMediaDeliveryPanel(
                                 }
                             }
                         }
-                        if (service.allowsCreation) Text("Create new project", style = MonitorTypography.text(13f, FontWeight.SemiBold), color = MonitorPalette.text,
+                        if (service.allowsCreation) Text(operatorText("Create new project"), style = MonitorTypography.text(13f, FontWeight.SemiBold), color = MonitorPalette.text,
                             modifier = Modifier.fillMaxWidth().deliveryOptionPlate().monitorChromeClickable {
                                 action(MonitorMediaDeliveryValue.Action.CreateProject)
                             }.padding(12.dp))
@@ -203,7 +203,7 @@ fun MonitorMediaDeliveryPanel(
         DeliverySectionHeader("EXPORT")
         export.filename?.let { filename ->
             Column(Modifier.fillMaxWidth().deliveryOptionPlate().padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                Text("Filename", style = MonitorTypography.text(12f, FontWeight.SemiBold), color = MonitorPalette.muted)
+                Text(operatorText("Filename"), style = MonitorTypography.text(12f, FontWeight.SemiBold), color = MonitorPalette.muted)
                 Text(filename, style = MonitorTypography.readout(13f), color = MonitorPalette.text, maxLines = 1, overflow = TextOverflow.Ellipsis)
             }
         }

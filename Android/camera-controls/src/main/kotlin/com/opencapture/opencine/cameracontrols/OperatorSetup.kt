@@ -1,5 +1,6 @@
 package com.opencapture.opencine.cameracontrols
 
+import com.opencapture.monitorui.operatorText
 import android.content.Context
 import android.content.res.Configuration
 import android.os.SystemClock
@@ -424,11 +425,11 @@ internal fun AssistRows(model: OperatorSetupModel, state: OperatorSetupState, ap
 
     MonitorExposureMeterSettings(
         isOn = assist.evMeter,
-        help = "Show the camera's exposure meter at the picture's left edge in DISP 1. Auto and Manual use the camera reading without changing exposure settings.",
+        help = operatorText("Show the camera's exposure meter at the picture's left edge in DISP 1. Auto and Manual use the camera reading without changing exposure settings."),
         onToggle = { assist.toggle(MonitorAssistTool.EV) },
     )
 
-    MonitorSettingsRowCard(title = "Anamorphic Desqueeze", onReset = {
+    MonitorSettingsRowCard(title = operatorText("Anamorphic Desqueeze"), onReset = {
         assist.updateDesqueezeFactor(1.33)
         assist.selectDesqueezePreset(MonitorDesqueezePreset.X133)
         assist.updateDesqueezeDirection(MonitorDesqueezeDirection.HORIZONTAL)
@@ -451,7 +452,7 @@ internal fun AssistRows(model: OperatorSetupModel, state: OperatorSetupState, ap
             )
         }
         MonitorSettingsInlineRow("Choose look") {
-            MonitorSettingsActionPill(title = "Open", minimumTouchTarget = false, onClick = onOpenLut)
+            MonitorSettingsActionPill(title = operatorText("Open"), minimumTouchTarget = false, onClick = onOpenLut)
         }
     }
 }
@@ -489,7 +490,7 @@ fun OperatorAssistCard(tool: MonitorAssistTool, assist: MonitorAssistState, help
 private fun FalseColorAssistCard(assist: MonitorAssistState, help: OperatorHelpCopy, transfer: MonitorTransfer, ceiling: ScopeClipSource,
     reset: () -> Unit, changed: () -> Unit) {
     MonitorSettingsRowCard(
-        title = "False Color",
+        title = operatorText("False Color"),
         onReset = reset,
     ) {
         MonitorSettingsInlineRow("Scale", help.FALSE_COLOR_SCALE, showTopDivider = false, stacked = true) {
@@ -498,11 +499,11 @@ private fun FalseColorAssistCard(assist: MonitorAssistState, help: OperatorHelpC
                 selected = assist.falseColorScale.menuLabel,
             ) { label -> assist.setFalseColor(scale = MonitorFalseColorSelection.fromMenuLabel(label)); changed() }
         }
-        MonitorSettingsInlineRow(title = "Reference key", stacked = true) {
+        MonitorSettingsInlineRow(title = operatorText("Reference key"), stacked = true) {
             FalseColorKey(assist.falseColorScale, transfer, ceiling)
         }
         MonitorSettingsSwitchInlineRow(
-            title = "Reference Display",
+            title = operatorText("Reference Display"),
             isOn = assist.falseColorReference,
             help = help.FALSE_COLOR_REFERENCE,
             stacked = true,
@@ -549,7 +550,7 @@ private fun FalseColorKey(scale: MonitorFalseColorSelection, transfer: MonitorTr
 @Composable
 private fun PeakingAssistCard(assist: MonitorAssistState, help: OperatorHelpCopy, host: AssistHost, reset: () -> Unit, changed: () -> Unit) {
     MonitorSettingsRowCard(
-        title = "Peaking",
+        title = operatorText("Peaking"),
         onReset = reset,
     ) {
         MonitorSettingsInlineRow("Sensitivity", help.PEAKING_SENSITIVITY, showTopDivider = false, stacked = true) {
@@ -570,7 +571,7 @@ private fun PeakingAssistCard(assist: MonitorAssistState, help: OperatorHelpCopy
 private fun ZebraAssistCard(assist: MonitorAssistState, help: OperatorHelpCopy, host: AssistHost, transfer: MonitorTransfer, ceiling: ScopeClipSource,
     reset: () -> Unit, changed: () -> Unit) {
     MonitorSettingsRowCard(
-        title = "Zebra",
+        title = operatorText("Zebra"),
         onReset = reset,
     ) {
         MonitorSettingsInlineRow("Units", help.ZEBRA_UNITS, showTopDivider = false, stacked = true) {
@@ -580,7 +581,7 @@ private fun ZebraAssistCard(assist: MonitorAssistState, help: OperatorHelpCopy, 
         }
         val maximum = ZebraEditor.editorMaximum(assist.zebraUnit)
         ZebraZoneRow(
-            title = "Highlight",
+            title = operatorText("Highlight"),
             help = help.ZEBRA_HIGHLIGHT,
             enabled = assist.zebraHighlight,
             value = ZebraEditor.displayValue(assist.zebraHighlightIRE, assist.zebraUnit, transfer, ceiling),
@@ -592,7 +593,7 @@ private fun ZebraAssistCard(assist: MonitorAssistState, help: OperatorHelpCopy, 
             onColor = { assist.setZebraHighlight(color = MonitorZebraPaint.fromPersisted(it)); changed() },
         )
         ZebraZoneRow(
-            title = "Midtone",
+            title = operatorText("Midtone"),
             help = help.ZEBRA_MIDTONE,
             enabled = assist.zebraMidtone,
             value = ZebraEditor.displayValue(assist.zebraMidtoneIRE, assist.zebraUnit, transfer, ceiling),
@@ -621,7 +622,7 @@ private fun ZebraZoneRow(
 ) {
     MonitorSettingsSwitchInlineRow(title = title, help = help, isOn = enabled, onToggle = onEnabled)
     Column(Modifier.padding(start = 14.dp).alpha(if (enabled) 1f else 0.4f)) {
-        MonitorSettingsInlineRow(title = "Threshold") {
+        MonitorSettingsInlineRow(title = operatorText("Threshold")) {
             MonitorSettingsValueSlider(
                 value = value.coerceIn(0, maximum),
                 range = 0..maximum,
@@ -631,7 +632,7 @@ private fun ZebraZoneRow(
                 modifier = Modifier.semantics { contentDescription = "$title threshold" },
             )
         }
-        MonitorSettingsInlineRow(title = "Colour") {
+        MonitorSettingsInlineRow(title = operatorText("Colour")) {
             MonitorSettingsColorDots(dots = palette, selectedName = selectedColor, onSelect = onColor)
         }
     }
@@ -640,7 +641,7 @@ private fun ZebraZoneRow(
 @Composable
 private fun WaveformAssistCard(assist: MonitorAssistState, help: OperatorHelpCopy, reset: () -> Unit, changed: () -> Unit) {
     MonitorSettingsRowCard(
-        title = "Waveform",
+        title = operatorText("Waveform"),
         onReset = reset,
     ) {
         MonitorSettingsInlineRow("Mode", showTopDivider = false, stacked = true) {
@@ -658,7 +659,7 @@ private fun WaveformAssistCard(assist: MonitorAssistState, help: OperatorHelpCop
 @Composable
 private fun ParadeAssistCard(assist: MonitorAssistState, help: OperatorHelpCopy, reset: () -> Unit, changed: () -> Unit) {
     MonitorSettingsRowCard(
-        title = "Parade",
+        title = operatorText("Parade"),
         onReset = reset,
     ) {
         MonitorSettingsInlineRow("Mode", showTopDivider = false, stacked = true) {
@@ -676,7 +677,7 @@ private fun ParadeAssistCard(assist: MonitorAssistState, help: OperatorHelpCopy,
 @Composable
 private fun HistogramAssistCard(assist: MonitorAssistState, reset: () -> Unit, changed: () -> Unit) {
     MonitorSettingsRowCard(
-        title = "Histogram",
+        title = operatorText("Histogram"),
         onReset = reset,
     ) {
         MonitorSettingsSwitchInlineRow(
@@ -695,7 +696,7 @@ private fun HistogramAssistCard(assist: MonitorAssistState, reset: () -> Unit, c
 @Composable
 private fun VectorscopeAssistCard(assist: MonitorAssistState, help: OperatorHelpCopy, reset: () -> Unit, changed: () -> Unit) {
     MonitorSettingsRowCard(
-        title = "Vectorscope",
+        title = operatorText("Vectorscope"),
         onReset = reset,
     ) {
         MonitorSettingsInlineRow("Trace Zoom", help.VECTORSCOPE_ZOOM, showTopDivider = false, stacked = true) {
@@ -711,7 +712,7 @@ private fun VectorscopeAssistCard(assist: MonitorAssistState, help: OperatorHelp
 
 @Composable
 private fun TrafficLightsAssistCard(assist: MonitorAssistState, help: OperatorHelpCopy, reset: () -> Unit, changed: () -> Unit) {
-    MonitorSettingsRowCard(title = "Traffic Lights", onReset = reset) {
+    MonitorSettingsRowCard(title = operatorText("Traffic Lights"), onReset = reset) {
         MonitorSettingsInlineRow(
             title = HistogramAssist.COMPENSATION_TITLE,
             help = help.TRAFFIC_LIGHTS_COMPENSATION,
@@ -742,9 +743,9 @@ private fun ScopeGuideRows(guides: MonitorScopeGuides, onChange: (MonitorScopeGu
 @Composable
 fun OperatorDisplayRows(model: OperatorSetupModel, state: OperatorSetupState, app: OperatorSetupApp) {
     val view = LocalView.current
-    MonitorSettingsRowCard(title = "Panel") {
+    MonitorSettingsRowCard(title = operatorText("Panel")) {
         MonitorSettingsSwitchInlineRow(
-            title = "HDR display",
+            title = operatorText("HDR display"),
             help = app.help.HDR_DISPLAY,
             showTopDivider = false,
             isOn = model.hdrDisplay,

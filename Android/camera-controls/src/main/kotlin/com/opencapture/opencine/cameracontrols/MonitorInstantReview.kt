@@ -1,5 +1,6 @@
 package com.opencapture.opencine.cameracontrols
 
+import com.opencapture.monitorui.operatorText
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
@@ -90,7 +91,7 @@ fun MonitorInstantReview(
             .background(Color.Black)
             .clickable(remember { MutableInteractionSource() }, indication = null, onClick = onDismiss)
             .testTag(MonitorInstantReviewIds.REVIEW)
-            .semantics { contentDescription = "Instant playback" },
+            .semantics { contentDescription = operatorText("Instant playback") },
     ) {
         val aspect = displayAspect?.takeIf { it.isFinite() && it > 0f }
         val fitted = Layout.imageFrame(aspect ?: image.width.toFloat(), if (aspect != null) 1f else image.height.toFloat(),

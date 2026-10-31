@@ -1,5 +1,6 @@
 package com.opencapture.opencine.cameracontrols
 
+import com.opencapture.monitorui.operatorText
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -136,7 +137,7 @@ public fun MonitorLegalDocumentScreen(documents: MonitorLegalDocuments, page: Mo
             Column(Modifier.padding(start = 45.dp)) {
                 Text(documents.wordmark, style = LiveType.ui(9.5f, FontWeight.Bold).copy(letterSpacing = 0.8.sp),
                     color = LiveDesign.accent)
-                Text(page.title, style = LiveType.ui(24f, FontWeight.SemiBold), color = LiveDesign.text)
+                Text(operatorText(page.title), style = LiveType.ui(24f, FontWeight.SemiBold), color = LiveDesign.text)
             }
             Spacer(Modifier.height(12.dp))
             val scroll = rememberScrollState()

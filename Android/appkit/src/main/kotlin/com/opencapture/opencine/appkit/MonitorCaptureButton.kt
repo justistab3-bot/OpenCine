@@ -1,5 +1,6 @@
 package com.opencapture.opencine.appkit
 
+import com.opencapture.monitorui.operatorText
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
@@ -103,7 +104,7 @@ public fun MonitorCaptureButton(
                         haptics.selection()
                         if (interactive && !photo) control.commitRecord(approval)
                     }.padding(vertical = 14.dp))
-                Text("Cancel", color = MonitorPalette.muted,
+                Text(operatorText("Cancel"), color = MonitorPalette.muted,
                     style = MonitorTypography.text(15f, FontWeight.Medium), textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxWidth().clickable(role = Role.Button) { haptics.selection(); approved = null }
                         .padding(vertical = 12.dp))

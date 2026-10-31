@@ -129,7 +129,7 @@ fun MonitorMediaFilterForm(
             FilterChoices("STORAGE", it.options, setOfNotNull(it.selectedId), chipLayout, it.onToggle)
         }
         if (empty) {
-            Text("Nothing in this tab to filter by.", color = MonitorPalette.faint, style = MonitorTypography.text(11f))
+            Text(operatorText("Nothing in this tab to filter by."), color = MonitorPalette.faint, style = MonitorTypography.text(11f))
         }
         if (showsInlineClear && active) {
             Text(

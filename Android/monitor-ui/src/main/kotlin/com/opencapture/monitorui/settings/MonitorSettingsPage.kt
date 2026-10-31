@@ -1,5 +1,6 @@
 package com.opencapture.monitorui.settings
 
+import com.opencapture.monitorui.operatorText
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.horizontalScroll
@@ -139,11 +140,11 @@ public fun MonitorSettingsPage(
         Column(Modifier.fillMaxSize()) {
             Row(verticalAlignment = Alignment.Top) {
                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(5.dp)) {
-                    Text(selection.title, style = MonitorTypography.text(17f, FontWeight.SemiBold), color = MonitorPalette.text)
-                    Text(if (selection == MonitorSettingsTab.SHARING) sharingSubtitle ?: selection.subtitle else selection.subtitle, style = MonitorTypography.text(10.5f), color = MonitorPalette.muted, maxLines = 2)
+                    Text(operatorText(selection.title), style = MonitorTypography.text(17f, FontWeight.SemiBold), color = MonitorPalette.text)
+                    Text(operatorText(if (selection == MonitorSettingsTab.SHARING) sharingSubtitle ?: selection.subtitle else selection.subtitle), style = MonitorTypography.text(10.5f), color = MonitorPalette.muted, maxLines = 2)
                 }
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
-                    Text(selection.pill.uppercase(),
+                    Text(operatorText(selection.pill.uppercase()),
                         style = MonitorTypography.readout(10f, FontWeight.Bold).copy(letterSpacing = 0.6.sp, color = MonitorPalette.accent),
                         modifier = Modifier.border(1.dp, MonitorPalette.accent.copy(alpha = 0.16f), CircleShape)
                             .padding(horizontal = 10.dp, vertical = 6.dp))
@@ -191,9 +192,9 @@ private fun SettingsTab(
         separator = separator, accessibilityLabel = tab.title) {
         Column(Modifier.then(if (vertical) Modifier.fillMaxWidth() else Modifier),
             verticalArrangement = Arrangement.spacedBy(2.dp)) {
-            Text(tab.title, style = MonitorTypography.text(12.5f, FontWeight.SemiBold),
+            Text(operatorText(tab.title), style = MonitorTypography.text(12.5f, FontWeight.SemiBold),
                 color = if (selected) MonitorPalette.accent else MonitorPalette.muted, maxLines = 1)
-            Text(subtitle ?: tab.rail, style = MonitorTypography.text(10f), color = MonitorPalette.faint, maxLines = 1)
+            Text(operatorText(subtitle ?: tab.rail), style = MonitorTypography.text(10f), color = MonitorPalette.faint, maxLines = 1)
         }
     }
 }
@@ -201,7 +202,7 @@ private fun SettingsTab(
 @Composable
 private fun SettingsDisconnect(onClick: () -> Unit, modifier: Modifier = Modifier) {
     MonitorCameraAction(
-        text = "Disconnect", primary = false, enabled = true, contentDescription = "Disconnect",
+        text = operatorText("Disconnect"), primary = false, enabled = true, contentDescription = operatorText("Disconnect"),
         onClick = onClick, modifier = modifier, destructive = true,
         icon = { tint -> MonitorIcon(MonitorIcon.LINK_2_OFF, null, Modifier.size(14.dp), tint) },
     )
@@ -213,7 +214,7 @@ private fun SettingsSessionStatus(isLive: Boolean, phaseLabel: String, modifier:
         verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
         Box(Modifier.size(7.dp).background(if (isLive) Color(0.18f, 0.78f, 0.42f) else MonitorPalette.faint, CircleShape))
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-            Text(if (isLive) "Active link" else "No camera connected",
+            Text(operatorText(if (isLive) "Active link" else "No camera connected"),
                 style = MonitorTypography.text(11.5f, FontWeight.SemiBold), color = MonitorPalette.text, maxLines = 1)
             Text(phaseLabel, style = MonitorTypography.text(9f), color = MonitorPalette.muted,
                 maxLines = 1, overflow = TextOverflow.Ellipsis)

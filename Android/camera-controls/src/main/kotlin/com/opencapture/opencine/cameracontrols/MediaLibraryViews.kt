@@ -1,5 +1,6 @@
 package com.opencapture.opencine.cameracontrols
 
+import com.opencapture.monitorui.operatorText
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -261,7 +262,7 @@ fun MediaEmptyState(listing: Boolean, subtitle: String, title: String? = null, r
             style = LiveType.ui(12f),
             modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp),
         )
-        if (retry != null) Text("Retry", color = LiveDesign.accent, style = LiveType.ui(13f, FontWeight.SemiBold),
+        if (retry != null) Text(operatorText("Retry"), color = LiveDesign.accent, style = LiveType.ui(13f, FontWeight.SemiBold),
             modifier = Modifier.chromeClickable(onClick = retry).padding(horizontal = 16.dp, vertical = 8.dp))
     }
 }
@@ -274,7 +275,7 @@ fun MediaListingState(listed: Int) {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         CircularProgressIndicator(color = LiveDesign.muted)
-        Text("Listing clips on camera…", color = LiveDesign.muted, style = LiveType.ui(15f, FontWeight.Medium), modifier = Modifier.padding(top = 12.dp))
+        Text(operatorText("Listing clips on camera…"), color = LiveDesign.muted, style = LiveType.ui(15f, FontWeight.Medium), modifier = Modifier.padding(top = 12.dp))
         Text(
             if (listed == 0) "Querying card storage…"
             else "$listed clip${if (listed == 1) "" else "s"} found so far",
@@ -346,14 +347,14 @@ fun MediaFilterPopup(
                 Column(Modifier.padding(top = 72.dp, start = 20.dp, end = 20.dp).widthIn(max = 400.dp).fillMaxWidth()
                     .mediaPanelGlass(MediaCornerShape).chromeClickable(onClick = {}).padding(16.dp),
                     verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                    Text("Filters", style = LiveType.ui(16f, FontWeight.SemiBold), color = LiveDesign.text)
+                    Text(operatorText("Filters"), style = LiveType.ui(16f, FontWeight.SemiBold), color = LiveDesign.text)
                     val scroll = rememberScrollState()
                     Column(Modifier.fillMaxWidth().weight(1f, fill = false).heightIn(max = 290.dp).verticalScroll(scroll)) { form() }
                     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                        Text("Clear all", style = LiveType.ui(13f, FontWeight.Medium),
+                        Text(operatorText("Clear all"), style = LiveType.ui(13f, FontWeight.Medium),
                             color = if (hasActiveFilters) LiveDesign.accent else LiveDesign.faint,
                             modifier = Modifier.chromeClickable(enabled = hasActiveFilters, onClick = onClear))
-                        Text("Done", style = LiveType.ui(13f, FontWeight.SemiBold), color = LiveDesign.accent,
+                        Text(operatorText("Done"), style = LiveType.ui(13f, FontWeight.SemiBold), color = LiveDesign.accent,
                             modifier = Modifier.chromeClickable(onClick = onClose))
                     }
                 }
@@ -389,7 +390,7 @@ fun MediaFilterPopup(
                 .padding(16.dp)
                 .monitorScrollFade(filterScroll)
                 .verticalScroll(filterScroll)
-                .semantics { contentDescription = "Filter popup" },
+                .semantics { contentDescription = operatorText("Filter popup") },
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
@@ -422,12 +423,12 @@ fun MediaFilterPopup(
                                 edit.commit(key)
                             }
                             edit.cancel(); pickingDate = null
-                        }) { Text("Done") }
+                        }) { Text(operatorText("Done")) }
                     },
                     dismissButton = {
                         TextButton(onClick = {
                             edit.commit(null); edit.cancel(); pickingDate = null
-                        }) { Text("Clear") }
+                        }) { Text(operatorText("Clear")) }
                     },
                 ) {
                     DatePicker(pickerState)
@@ -453,7 +454,7 @@ fun MediaCloseButton(
             .clip(CircleShape)
             .mediaGlass(CircleShape)
             .chromeClickable(enabled = enabled, onClick = onClick)
-            .semantics { contentDescription = "Close" },
+            .semantics { contentDescription = operatorText("Close") },
         contentAlignment = Alignment.Center,
     ) {
         MonitorIcon(

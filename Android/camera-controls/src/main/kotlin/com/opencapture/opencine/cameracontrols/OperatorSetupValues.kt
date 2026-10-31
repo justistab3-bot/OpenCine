@@ -1,5 +1,6 @@
 package com.opencapture.opencine.cameracontrols
 
+import com.opencapture.monitorui.operatorText
 import android.content.Context
 import com.opencapture.monitorui.MonitorLinkHealth
 import com.opencapture.opencine.vocabulary.ConnectionPhase
@@ -76,7 +77,7 @@ fun connectionPhaseLabel(phase: ConnectionPhase, failure: String?): String =
         ConnectionPhase.PAIRING -> cameraText("Pairing…")
         ConnectionPhase.AWAITING_APPROVAL -> cameraText("Approve on the camera screen")
         ConnectionPhase.READING_WIFI_CREDS -> cameraText("Reading Wi-Fi credentials…")
-        ConnectionPhase.JOINING_WIFI -> cameraText("Joining camera Wi-Fi…")
+        ConnectionPhase.JOINING_WIFI -> cameraText(operatorText("Joining…"))
         ConnectionPhase.OPENING_DATALINK -> cameraText("Opening datalink…")
         ConnectionPhase.LIVE -> cameraText("Connected")
         ConnectionPhase.FAILED ->

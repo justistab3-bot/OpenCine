@@ -1,5 +1,6 @@
 package com.opencapture.opencine.cameracontrols
 
+import com.opencapture.monitorui.operatorText
 import com.opencapture.opencine.vocabulary.MediaClipFormatting
 import com.opencapture.opencine.vocabulary.MediaFile
 import com.opencapture.opencine.vocabulary.MediaKind
@@ -98,7 +99,7 @@ object MediaLibraryCopy {
     const val BROWSE_HINT = "Tap to open · Hold, then drag to select"
     const val SELECTING_HINT = "Swipe to scroll · Hold or drag sideways to select"
     const val READING_HINT = "Reading camera media…"
-    const val LISTING_TITLE = "Listing clips on camera…"
+    val LISTING_TITLE: String get() = operatorText("Listing clips on camera…")
     const val FILTER_EMPTY_TITLE = "No matching clips"
     const val DISCONNECTED_TITLE = "Camera disconnected"
     const val NO_CACHED_TITLE = "No cached clips"

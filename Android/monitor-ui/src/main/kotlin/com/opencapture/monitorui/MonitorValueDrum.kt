@@ -158,7 +158,7 @@ fun MonitorValueDrum(options: List<String>, selection: String, modifier: Modifie
             val x = center + distance * cell
             val edgeAlpha = (minOf(x, size.width - x) / (size.width * .14f)).coerceIn(0f, 1f)
             val tint = Color.White.copy(alpha = (.45f + .55f * emphasis) * edgeAlpha)
-            val text = options[index]
+            val text = operatorText(options[index])
             val layout = textMeasurer.measure(text, MonitorTypography.readout(15f, if (index == base) FontWeight.SemiBold else FontWeight.Normal), maxLines = 1)
             val baseline = 44.dp.toPx()
             // iOS: a filled 8pt star 3pt after the value, centered with it and in the value's tint.
@@ -184,6 +184,6 @@ fun MonitorValueDrum(options: List<String>, selection: String, modifier: Modifie
  * so the hint (the Swift drum's `accessibilityHint`) follows the value.
  */
 internal fun monitorDrumDescription(selection: String, hint: String?): String {
-    val value = selection.ifBlank { "Choose value" }
+    val value = operatorText(selection.ifBlank { "Choose value" })
     return if (hint.isNullOrBlank()) value else "$value. $hint"
 }

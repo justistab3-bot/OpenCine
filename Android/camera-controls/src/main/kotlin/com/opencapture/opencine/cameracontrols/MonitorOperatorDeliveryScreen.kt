@@ -1,5 +1,7 @@
 package com.opencapture.opencine.cameracontrols
 
+import com.opencapture.monitorui.operatorFormat
+import com.opencapture.monitorui.operatorText
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
@@ -252,14 +254,14 @@ fun <C, F, P, X, H> MonitorOperatorDeliveryPopupOverlay(
                     else MonitorIcon(MonitorIcon.SHARE, null, Modifier.size(18.dp), MonitorPalette.text) })
         }
     }
-    if (showCreate) AlertDialog(onDismissRequest = { showCreate = false }, title = { Text("New $serviceName project") },
-        text = { Column { Text("Creates a blank project in your workspace."); TextField(name, { name = it }, label = { Text("Project name") }) } },
-        confirmButton = { TextButton(enabled = name.trim().isNotEmpty(), onClick = { val captured = name; name = ""; showCreate = false; model.createProject(captured) }) { Text("Create") } },
-        dismissButton = { TextButton(onClick = { name = ""; showCreate = false }) { Text("Cancel") } })
-    if (showHop) AlertDialog(onDismissRequest = { showHop = false }, title = { Text("Leave camera Wi-Fi?") },
-        text = { Text("We'll hop to home Wi-Fi or cellular so you can sign in and pick a project. The camera reconnects automatically when you're done.") },
-        confirmButton = { TextButton(onClick = { showHop = false; model.hopToInternet() }) { Text("Hop") } },
-        dismissButton = { TextButton(onClick = { showHop = false }) { Text("Cancel") } })
+    if (showCreate) AlertDialog(onDismissRequest = { showCreate = false }, title = { Text(operatorFormat("New %1\$s project", serviceName)) },
+        text = { Column { Text(operatorText("Creates a blank project in your workspace.")); TextField(name, { name = it }, label = { Text(operatorText("Project name")) }) } },
+        confirmButton = { TextButton(enabled = name.trim().isNotEmpty(), onClick = { val captured = name; name = ""; showCreate = false; model.createProject(captured) }) { Text(operatorText("Create")) } },
+        dismissButton = { TextButton(onClick = { name = ""; showCreate = false }) { Text(operatorText("Cancel")) } })
+    if (showHop) AlertDialog(onDismissRequest = { showHop = false }, title = { Text(operatorText("Leave camera Wi-Fi?")) },
+        text = { Text(operatorText("We'll hop to home Wi-Fi or cellular so you can sign in and pick a project. The camera reconnects automatically when you're done.")) },
+        confirmButton = { TextButton(onClick = { showHop = false; model.hopToInternet() }) { Text(operatorText("Hop")) } },
+        dismissButton = { TextButton(onClick = { showHop = false }) { Text(operatorText("Cancel")) } })
 }
 
 /**

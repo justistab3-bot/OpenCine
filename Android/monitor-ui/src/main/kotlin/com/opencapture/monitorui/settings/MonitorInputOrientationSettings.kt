@@ -1,5 +1,6 @@
 package com.opencapture.monitorui.settings
 
+import com.opencapture.monitorui.operatorText
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,7 +23,7 @@ fun MonitorInputOrientationSettings(
     val offersRemote = remoteShutter != null && onRemoteShutter != null
     val offersRotation = autoRotateFeed != null && onAutoRotateFeed != null
     if (!offersRemote && !offersRotation) return
-    MonitorSettingsRowCard(title = "Input & orientation") {
+    MonitorSettingsRowCard(title = operatorText("Input & orientation")) {
         if (remoteShutter != null && onRemoteShutter != null) {
             MonitorSettingsSwitchInlineRow(title = remoteTitle, help = remoteHelp,
                 isOn = remoteShutter, showTopDivider = false, testTag = REMOTE_SHUTTER_TAG) {

@@ -157,7 +157,7 @@ fun MonitorDurationDial(
         modifier.size(MonitorDurationDialMetrics.WIDTH.dp, MonitorDurationDialMetrics.HEIGHT.dp)
             .background(ColorWhite07, RoundedCornerShape(8.dp))
             .semantics {
-                contentDescription = "Duration"
+                contentDescription = operatorText("Duration")
                 stateDescription = formatter(displayValue)
                 if (!enabled) disabled()
                 progressBarRangeInfo = ProgressBarRangeInfo(

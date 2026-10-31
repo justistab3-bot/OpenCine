@@ -1,5 +1,7 @@
 package com.opencapture.opencine.cameracontrols
 
+import com.opencapture.monitorui.operatorFormat
+import com.opencapture.monitorui.operatorText
 import android.graphics.Bitmap
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
@@ -102,7 +104,7 @@ public fun <P> MonitorOperatorPhotoScreen(library: MonitorMediaLibraryModel<P>, 
                             .size(with(density) { fitted.width.toDp() }, with(density) { fitted.height.toDp() }),
                         enabled = model.isCurrent && !coverPresented && !state.optionsPresented && state.deleteRequestID == null,
                         onTransform = { transform = it },
-                        contentDescription = "Photo preview for ${displayRecord.asset.filename}") {
+                        contentDescription = operatorFormat("Photo preview for %1\$s", displayRecord.asset.filename)) {
                             Image(image.asImageBitmap(), null, contentScale = ContentScale.FillBounds,
                                 modifier = Modifier.fillMaxSize())
                         }
@@ -111,7 +113,7 @@ public fun <P> MonitorOperatorPhotoScreen(library: MonitorMediaLibraryModel<P>, 
                 Column(Modifier.align(Alignment.Center).clip(MediaCornerShape).mediaGlass(MediaCornerShape).padding(24.dp),
                     horizontalAlignment = Alignment.CenterHorizontally) {
                     CircularProgressIndicator(color = LiveDesign.accent)
-                    Text("Preparing image…", color = LiveDesign.muted, style = LiveType.ui(14f, FontWeight.Medium))
+                    Text(operatorText("Preparing image…"), color = LiveDesign.muted, style = LiveType.ui(14f, FontWeight.Medium))
                 }
             }
             scrims()
@@ -126,10 +128,10 @@ public fun <P> MonitorOperatorPhotoScreen(library: MonitorMediaLibraryModel<P>, 
                         maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
                     if (model.variants.size > 1) photoVariantChoices(model.variants, displayRecord.asset.id,
                         !state.variantSwitching && model.isCurrent) { model.selectVariant(it, loaders, policy) }
-                    if (collection.isNotEmpty() && model.canDelete(operations)) Text("Delete all",
+                    if (collection.isNotEmpty() && model.canDelete(operations)) Text(operatorText("Delete all"),
                         style = LiveType.ui(13f, FontWeight.SemiBold), color = Color(0xFFFF5A54),
                         modifier = Modifier
-                            .semantics { contentDescription = "Delete the whole burst series"; role = Role.Button }
+                            .semantics { contentDescription = operatorText("Delete the whole burst series"); role = Role.Button }
                             .chromeClickable { model.requestDelete(operations, collection) }.padding(8.dp))
                     if (model.canDelete(operations))
                         MediaCircleIconButton(MonitorIcon.TRASH, "Delete photo from the camera card",
@@ -188,7 +190,7 @@ public fun <P> MonitorOperatorPhotoScreen(library: MonitorMediaLibraryModel<P>, 
                     else if (deletedReturning == null) (deleted ?: close)()
                 } })
             state.failure?.let { message -> AlertDialog(onDismissRequest = model::dismissFailure, text = { Text(message) },
-                confirmButton = { TextButton(model::dismissFailure) { Text("OK") } }) }
+                confirmButton = { TextButton(model::dismissFailure) { Text(operatorText("OK")) } }) }
         }
     }
 }
@@ -198,7 +200,7 @@ public fun <P> MonitorOperatorPhotoScreen(library: MonitorMediaLibraryModel<P>, 
     select: (com.opencapture.opencine.media.MediaAssetID) -> Unit) {
     Row(Modifier.background(Color.Black.copy(alpha = 0.35f), androidx.compose.foundation.shape.CircleShape).padding(2.dp)
         .semantics {
-            contentDescription = "Photo format"
+            contentDescription = operatorText("Photo format")
             stateDescription = choices.firstOrNull { it.id == selected }?.label.orEmpty()
         },
         horizontalArrangement = Arrangement.spacedBy(2.dp)) {
@@ -207,7 +209,7 @@ public fun <P> MonitorOperatorPhotoScreen(library: MonitorMediaLibraryModel<P>, 
                 style = LiveType.mono(10f, FontWeight.Bold),
                 modifier = Modifier.background(if (choice.id == selected) LiveDesign.accentDim else Color.Transparent,
                     androidx.compose.foundation.shape.CircleShape)
-                    .semantics { contentDescription = "Show ${choice.label}"; role = Role.Button }
+                    .semantics { contentDescription = operatorFormat("Show %1\$s", operatorText(choice.label)); role = Role.Button }
                     .chromeClickable(enabled) { select(choice.id) }
                     .padding(horizontal = 10.dp, vertical = 6.dp))
         }
@@ -230,7 +232,7 @@ public fun <P> MonitorOperatorPhotoScreen(library: MonitorMediaLibraryModel<P>, 
         Row(verticalAlignment = Alignment.CenterVertically) {
             AssistToolGlyph(MonitorAssistTool.DESQ, LiveDesign.text, Modifier.size(15.dp))
             Spacer(Modifier.width(8.dp))
-            Text(MonitorAssistTool.DESQ.title.uppercase(), color = LiveDesign.text,
+            Text(operatorText(MonitorAssistTool.DESQ.title.uppercase()), color = LiveDesign.text,
                 style = LiveType.ui(15f, FontWeight.SemiBold).copy(letterSpacing = 0.8.sp))
             Spacer(Modifier.weight(1f))
             LivePopupCloseButton(close, size = MonitorAssistPanelMetrics.CLOSE_DP.dp)

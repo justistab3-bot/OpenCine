@@ -1,5 +1,6 @@
 package com.opencapture.monitorui.settings
 
+import com.opencapture.monitorui.operatorText
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
@@ -210,7 +211,7 @@ public fun MonitorDisplaySections(
 
 @Composable
 private fun DisplayCaption(text: String) {
-    Text(text, style = MonitorTypography.text(11f, FontWeight.SemiBold), color = MonitorPalette.muted)
+    Text(operatorText(text), style = MonitorTypography.text(11f, FontWeight.SemiBold), color = MonitorPalette.muted)
 }
 
 /** Complete labels and switches must fit before a pane gains another column. */
@@ -382,7 +383,7 @@ public fun MonitorDisplayOrderList(
                             Text(item.positionLabel ?: "${index + 1}", style = MonitorTypography.readout(9f, FontWeight.Medium),
                                 color = MonitorPalette.muted)
                         }
-                        Text(item.title, style = MonitorTypography.text(12.5f, FontWeight.SemiBold),
+                        Text(operatorText(item.title), style = MonitorTypography.text(12.5f, FontWeight.SemiBold),
                             color = if (item.highlighted) MonitorPalette.accent else if (item.isOn) MonitorPalette.text else MonitorPalette.muted,
                             maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
                         if (item.toggle != null) {

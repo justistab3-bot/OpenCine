@@ -1,5 +1,6 @@
 package com.opencapture.opencine.cameracontrols
 
+import com.opencapture.monitorui.operatorText
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -229,7 +230,7 @@ public fun <P> MonitorOperatorCatalogScreen(
     }
     state.failure?.let { message ->
         AlertDialog(onDismissRequest = gallery::dismissFailure, title = { Text(message) },
-            confirmButton = { TextButton(onClick = gallery::dismissFailure) { Text("OK") } })
+            confirmButton = { TextButton(onClick = gallery::dismissFailure) { Text(operatorText("OK")) } })
     }
 }
 

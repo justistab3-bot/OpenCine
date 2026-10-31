@@ -1,5 +1,7 @@
 package com.opencapture.opencine.appkit.diagnostics
 
+import com.opencapture.monitorui.operatorFormat
+import com.opencapture.monitorui.operatorText
 import android.graphics.BitmapFactory
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
@@ -101,7 +103,7 @@ public fun ManualProblemReportDialog(
     if (!manualReport.isConfigured()) {
         AlertDialog(
             onDismissRequest = onClose,
-            title = { Text("Report unavailable", color = MonitorPalette.text) },
+            title = { Text(operatorText("Report unavailable"), color = MonitorPalette.text) },
             text = {
                 Text(
                     "This build cannot send a report. Use Share Diagnostics in the pairing menu, or Diagnostic options in System, to save a diagnostic report.",
@@ -109,7 +111,7 @@ public fun ManualProblemReportDialog(
                 )
             },
             confirmButton = {
-                TextButton(onClick = onClose) { Text("OK", color = MonitorPalette.accent) }
+                TextButton(onClick = onClose) { Text(operatorText("OK"), color = MonitorPalette.accent) }
             },
             containerColor = MonitorPalette.surface,
         )
@@ -226,7 +228,7 @@ public fun ManualProblemReportDialog(
             verticalArrangement = Arrangement.spacedBy(10.dp),
         ) {
             Text(
-                "Report a problem",
+                operatorText("Report a problem"),
                 style = MonitorTypography.text(16f, FontWeight.SemiBold),
                 color = MonitorPalette.text,
             )
@@ -261,7 +263,7 @@ public fun ManualProblemReportDialog(
                     value = message,
                     onValueChange = { message = it.take(ManualProblemReport.MESSAGE_MAX) },
                     modifier = Modifier.fillMaxWidth(),
-                    label = { Text("What happened?") },
+                    label = { Text(operatorText("What happened?")) },
                     supportingText = {
                         Text("${message.length}/${ManualProblemReport.MESSAGE_MAX}", color = MonitorPalette.faint)
                     },
@@ -273,7 +275,7 @@ public fun ManualProblemReportDialog(
                     value = email,
                     onValueChange = { email = it.take(ManualProblemReport.EMAIL_MAX) },
                     modifier = Modifier.fillMaxWidth(),
-                    label = { Text("Reply email (optional)") },
+                    label = { Text(operatorText("Reply email (optional)")) },
                     supportingText = {
                         Text("${email.length}/${ManualProblemReport.EMAIL_MAX}", color = MonitorPalette.faint)
                     },
@@ -289,7 +291,7 @@ public fun ManualProblemReportDialog(
                 ) {
                     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
                         Text(
-                            "Include technical details",
+                            operatorText("Include technical details"),
                             style = MonitorTypography.text(13f, FontWeight.SemiBold),
                             color = MonitorPalette.text,
                         )
@@ -339,7 +341,7 @@ public fun ManualProblemReportDialog(
                 }
                 if (preparingImages) {
                     Text(
-                        "Preparing images…",
+                        operatorText("Preparing image…"),
                         style = MonitorTypography.text(11f, FontWeight.Normal),
                         color = MonitorPalette.muted,
                     )
@@ -352,7 +354,7 @@ public fun ManualProblemReportDialog(
                     ) {
                         Image(
                             bitmap = draft.preview.asImageBitmap(),
-                            contentDescription = "Selected photo ${index + 1}",
+                            contentDescription = operatorFormat("Selected photo %1\$d", index + 1),
                             modifier =
                                 Modifier
                                     .width(72.dp)
@@ -388,7 +390,7 @@ public fun ManualProblemReportDialog(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 TextButton(onClick = onPrivacy) {
-                    Text("Reporting Privacy", color = MonitorPalette.muted)
+                    Text(operatorText("Reporting Privacy"), color = MonitorPalette.muted)
                 }
                 SettingsActionPill("Cancel", tint = MonitorPalette.muted, background = MonitorPalette.faint.copy(alpha = 0.2f), onClick = onClose)
                 if (report.allowsNewSubmit) {

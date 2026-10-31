@@ -1,5 +1,6 @@
 package com.opencapture.monitorui.settings
 
+import com.opencapture.monitorui.operatorText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
 
@@ -9,13 +10,13 @@ fun MonitorConnectionSettings(
     transport: String, transportHelp: String, phase: String, phaseHelp: String,
     network: String? = null, networkHelp: String = "",
 ) {
-    MonitorSettingsRowCard(title = "Connection") {
-        MonitorSettingsInlineRow(title = "Current Transport", help = transportHelp, showTopDivider = false) {
+    MonitorSettingsRowCard(title = operatorText("Connection")) {
+        MonitorSettingsInlineRow(title = operatorText("Current Transport"), help = transportHelp, showTopDivider = false) {
             MonitorSettingsValueText(transport)
         }
-        MonitorSettingsInlineRow(title = "Phase", help = phaseHelp) { MonitorSettingsValueText(phase) }
+        MonitorSettingsInlineRow(title = operatorText("Phase"), help = phaseHelp) { MonitorSettingsValueText(phase) }
         if (network != null) {
-            MonitorSettingsInlineRow(title = "Camera Wi-Fi", help = networkHelp) { MonitorSettingsValueText(network) }
+            MonitorSettingsInlineRow(title = operatorText("Camera Wi-Fi"), help = networkHelp) { MonitorSettingsValueText(network) }
         }
     }
 }
@@ -25,9 +26,9 @@ data class MonitorSavedCameraSummary(val id: String, val name: String, val detai
 /** Read-only summaries; pairing remains the host's cameras flow. */
 @Composable
 fun MonitorSavedCameraSettings(cameras: List<MonitorSavedCameraSummary>, emptyHelp: String) {
-    MonitorSettingsRowCard(title = "Your cameras") {
+    MonitorSettingsRowCard(title = operatorText("Your cameras")) {
         if (cameras.isEmpty()) {
-            MonitorSettingsInlineRow(title = "Saved", help = emptyHelp, showTopDivider = false) {
+            MonitorSettingsInlineRow(title = operatorText("Saved"), help = emptyHelp, showTopDivider = false) {
                 MonitorSettingsValueText("None")
             }
         } else {

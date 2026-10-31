@@ -62,7 +62,7 @@ fun MonitorDisplayButton(activeIndex: Int?, modeCount: Int, description: String,
         .semantics { contentDescription = description; role = Role.Button },
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(3.dp, Alignment.CenterVertically)) {
-        Text("DISP", color = MonitorPalette.muted,
+        Text(operatorText("DISP"), color = MonitorPalette.muted,
             style = MonitorTypography.text(MonitorLayoutPolicy.DISP_SIZE, FontWeight.Bold)
                 .copy(letterSpacing = MonitorLayoutPolicy.DISP_TRACKING.sp))
         Row(horizontalArrangement = Arrangement.spacedBy(3.dp)) {

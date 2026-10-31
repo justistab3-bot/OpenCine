@@ -1,5 +1,7 @@
 package com.opencapture.opencine.appkit
 
+import com.opencapture.monitorui.operatorFormat
+import com.opencapture.monitorui.operatorText
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -440,7 +442,7 @@ private fun DisplayButton(clean: Boolean, modifier: Modifier, feedback: () -> Un
         verticalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterVertically),
     ) {
         Text(
-            "DISP", color = if (clean) Color.White else MonitorPalette.muted,
+            operatorText("DISP"), color = if (clean) Color.White else MonitorPalette.muted,
             style = MonitorTypography.text(12f, FontWeight.Bold).copy(letterSpacing = 0.4.sp),
         )
         Row(horizontalArrangement = Arrangement.spacedBy(3.dp)) {
@@ -591,7 +593,7 @@ private fun TileView(
                         onTap = { current.select(index) },
                     )
                 }.semantics {
-                    contentDescription = "Select camera ${MultiviewTile.letter(index)}, ${tile.name}"
+                    contentDescription = operatorFormat("Select camera %1\$s, %2\$s", MultiviewTile.letter(index), tile.name)
                     stateDescription = if (focused) stationText("Selected") else stationText("Not selected")
                     role = Role.Button
                     if (enabled) onClick { actions.select(index); true }
@@ -651,12 +653,12 @@ private fun TileView(
                         .monitorChromeClickable(
                             enabled = enabled && !busy && !groupBusy, onClickFeedback = actions.feedback,
                         ) { actions.add(index) }
-                        .semantics { contentDescription = "Add camera"; role = Role.Button },
+                        .semantics { contentDescription = operatorText("Add camera"); role = Role.Button },
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.spacedBy(5.dp, Alignment.CenterVertically),
                 ) {
                     MonitorIcon(MonitorIcon.PLUS, null, Modifier.size(if (compact) 24.dp else 34.dp), MonitorPalette.muted)
-                    Text("Add camera", color = MonitorPalette.muted,
+                    Text(operatorText("Add camera"), color = MonitorPalette.muted,
                         style = MonitorTypography.text(if (compact) 10f else 14f, FontWeight.SemiBold))
                 }
             } else if (!clean) {
@@ -842,7 +844,7 @@ private fun TileChrome(
                     Text(tile.model, color = Color.White.copy(alpha = 0.7f), style = MonitorTypography.text(small),
                         maxLines = 1, overflow = TextOverflow.Ellipsis)
                     Text("TC $timecode", color = Color.White, style = MonitorTypography.readout(small),
-                        maxLines = 1, modifier = Modifier.semantics { contentDescription = "Timecode $timecode" })
+                        maxLines = 1, modifier = Modifier.semantics { contentDescription = operatorFormat("Timecode %1\$s", timecode) })
                 }
             }
         }
@@ -850,7 +852,7 @@ private fun TileChrome(
         Box(
             Modifier.align(Alignment.TopEnd).size(44.dp)
                 .monitorChromeClickable(enabled = enabled, onClickFeedback = actions.feedback, onClick = onOptions)
-                .semantics { contentDescription = "Camera $letter options"; role = Role.Button },
+                .semantics { contentDescription = operatorFormat("Camera %1\$s options", letter); role = Role.Button },
             contentAlignment = Alignment.TopEnd,
         ) {
             MonitorIcon(MonitorIcon.ELLIPSIS, null, Modifier.padding(top = edge, end = edge).size(20.dp), Color.White)
@@ -871,7 +873,7 @@ private fun TileChrome(
                 BatteryPill(tile.battery, tile.batteryBars, tile.batteryBarCount)
                 Text(tile.storage, color = Color.White, style = MonitorTypography.readout(small), maxLines = 1,
                     modifier = (if (values == null) Modifier.weight(1f) else Modifier)
-                        .semantics { contentDescription = "Storage ${tile.storage}" })
+                        .semantics { contentDescription = operatorFormat("Storage %1\$s", tile.storage) })
                 if (values != null) {
                     // Inline with both sides; the values take what is left over.
                     Row(Modifier.weight(1f),
@@ -957,7 +959,7 @@ public fun MultiviewCameraPicker(
             Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp, top = 8.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Text("Add camera", color = MonitorPalette.text, style = MonitorTypography.text(20f, FontWeight.SemiBold),
+            Text(operatorText("Add camera"), color = MonitorPalette.text, style = MonitorTypography.text(20f, FontWeight.SemiBold),
                 modifier = Modifier.weight(1f))
             Box(
                 Modifier.heightIn(min = 44.dp).widthIn(min = 64.dp)
@@ -965,7 +967,7 @@ public fun MultiviewCameraPicker(
                     .semantics { role = Role.Button },
                 contentAlignment = Alignment.CenterStart,
             ) {
-                Text("Cancel", color = MonitorPalette.accent, style = MonitorTypography.text(16f))
+                Text(operatorText("Cancel"), color = MonitorPalette.accent, style = MonitorTypography.text(16f))
             }
         }
         val pickerScroll = rememberScrollState()

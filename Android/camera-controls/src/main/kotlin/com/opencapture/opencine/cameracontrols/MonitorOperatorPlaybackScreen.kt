@@ -1,5 +1,6 @@
 package com.opencapture.opencine.cameracontrols
 
+import com.opencapture.monitorui.operatorText
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -357,13 +358,13 @@ public fun MonitorOperatorMediaUnavailable(closeEnabled: Boolean = true, close: 
     Column(Modifier.fillMaxSize().background(Color.Black).padding(24.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
         horizontalAlignment = Alignment.CenterHorizontally) {
-        Text("Media unavailable", color = LiveDesign.text, style = LiveType.ui(20f, FontWeight.SemiBold),
+        Text(operatorText("Media unavailable"), color = LiveDesign.text, style = LiveType.ui(20f, FontWeight.SemiBold),
             modifier = Modifier.testTag("monitor.media.unavailable"))
-        Text("This media is no longer available.", color = LiveDesign.muted,
+        Text(operatorText("This media is no longer available."), color = LiveDesign.muted,
             style = LiveType.ui(14f, FontWeight.Medium))
         TextButton(onClick = close, enabled = closeEnabled,
-            modifier = Modifier.testTag("monitor.media.unavailable.close").semantics { contentDescription = "Close" }) {
-            Text("Close", color = LiveDesign.text, style = LiveType.ui(14f, FontWeight.SemiBold))
+            modifier = Modifier.testTag("monitor.media.unavailable.close").semantics { contentDescription = operatorText("Close") }) {
+            Text(operatorText("Close"), color = LiveDesign.text, style = LiveType.ui(14f, FontWeight.SemiBold))
         }
     }
 }

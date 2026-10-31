@@ -1,5 +1,6 @@
 package com.opencapture.opencine.cameracontrols
 
+import com.opencapture.monitorui.operatorText
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
@@ -282,7 +283,7 @@ private fun OperatorWaitingPicture(frame: MonitorRect, control: MonitorControlMo
     Box(Modifier.frame(frame).background(Color.Black), contentAlignment = Alignment.Center) {
         Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(12.dp)) {
             CircularProgressIndicator(color = LiveDesign.text.copy(alpha = .72f))
-            Text("WAITING FOR LIVE VIEW", color = LiveDesign.text.copy(alpha = .72f), style = LiveType.mono(15f, FontWeight.SemiBold))
+            Text(operatorText("WAITING FOR LIVE VIEW"), color = LiveDesign.text.copy(alpha = .72f), style = LiveType.mono(15f, FontWeight.SemiBold))
             if (hint) Text(LocalVPNFilter.LIVE_HINT, color = LiveDesign.muted, style = LiveType.ui(12f),
                 textAlign = TextAlign.Center, modifier = Modifier.padding(horizontal = 28.dp))
         }
@@ -297,7 +298,7 @@ private fun OperatorPictureNotice(frame: MonitorRect, notice: MonitorOperatorPic
         Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(12.dp),
             modifier = Modifier.padding(horizontal = 28.dp)) {
             if (notice.progress) CircularProgressIndicator(color = LiveDesign.text.copy(alpha = .72f))
-            Text(notice.title, color = LiveDesign.text.copy(alpha = .72f), style = LiveType.mono(15f, FontWeight.SemiBold),
+            Text(operatorText(notice.title), color = LiveDesign.text.copy(alpha = .72f), style = LiveType.mono(15f, FontWeight.SemiBold),
                 textAlign = TextAlign.Center)
             notice.detail?.let { Text(it, color = LiveDesign.muted, style = LiveType.ui(12f), textAlign = TextAlign.Center) }
         }

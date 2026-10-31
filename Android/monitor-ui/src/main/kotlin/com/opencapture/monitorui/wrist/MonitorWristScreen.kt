@@ -1,5 +1,6 @@
 package com.opencapture.monitorui.wrist
 
+import com.opencapture.monitorui.operatorFormat
 import com.opencapture.opencine.media.BatteryReading
 import com.opencapture.opencine.media.BatteryFraction
 import com.opencapture.opencine.media.BatterySteps
@@ -271,11 +272,11 @@ private fun MonitorWristBatteryReadout(reading: BatteryReading?, exhausted: Bool
                 if (reading.of > 10) {
                     Text("${reading.filled}/${reading.of}", color = tint, fontSize = 11.sp,
                         maxLines = 1, textAlign = TextAlign.End, modifier = Modifier.semantics {
-                            contentDescription = "Camera battery ${reading.filled} of ${reading.of} bars"
+                            contentDescription = operatorFormat("Camera battery %1\$d of %2\$d bars", reading.filled, reading.of)
                         })
                 } else {
                     Row(horizontalArrangement = Arrangement.spacedBy(1.dp), modifier = Modifier.semantics {
-                        contentDescription = "Camera battery ${reading.filled} of ${reading.of} bars"
+                        contentDescription = operatorFormat("Camera battery %1\$d of %2\$d bars", reading.filled, reading.of)
                     }) {
                         repeat(reading.of) { index ->
                             Box(Modifier.size(width = 2.5.dp, height = 7.dp).background(

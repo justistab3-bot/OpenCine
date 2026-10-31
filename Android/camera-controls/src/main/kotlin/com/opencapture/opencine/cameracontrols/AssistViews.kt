@@ -1,5 +1,6 @@
 package com.opencapture.opencine.cameracontrols
 
+import com.opencapture.monitorui.operatorText
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -336,7 +337,7 @@ private fun ParadeOptions(state: MonitorAssistState, supportsCalibratedReference
 @Composable
 private fun HistogramOptions(state: MonitorAssistState, supportsCalibratedReferences: Boolean) {
     if (!supportsCalibratedReferences) {
-        Text("Encoded code percentage. Source calibration unavailable.", color = MonitorPalette.muted, fontSize = 11.sp)
+        Text(operatorText("Encoded code percentage. Source calibration unavailable."), color = MonitorPalette.muted, fontSize = 11.sp)
         return
     }
     val haptics = LocalOperatorHaptics.current

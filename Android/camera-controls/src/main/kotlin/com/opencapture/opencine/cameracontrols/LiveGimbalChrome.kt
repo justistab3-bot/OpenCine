@@ -1,5 +1,7 @@
 package com.opencapture.opencine.cameracontrols
 
+import com.opencapture.monitorui.operatorFormat
+import com.opencapture.monitorui.operatorText
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.awaitEachGesture
@@ -172,7 +174,7 @@ fun LiveGimbalButton(
         modifier
             .size(LiveChromeMetrics.ZOOM_CHIP_DP.dp)
             .chromeClickable(enabled = !locked, onClick = onClick)
-            .semantics { contentDescription = "Gimbal controls" },
+            .semantics { contentDescription = operatorText("Gimbal controls") },
         contentAlignment = Alignment.Center,
     ) {
         MonitorIcon(
@@ -216,7 +218,7 @@ fun LiveGimbalSheetHost(
         block()
     }
     MonitorInspector(
-        title = "Gimbal",
+        title = operatorText("Gimbal"),
         viewportWidth = layout.viewportWidth,
         viewportHeight = layout.viewportHeight,
         onDismiss = { model.liveGimbalPanel = LiveGimbalPanel.NONE },
@@ -237,7 +239,7 @@ fun LiveGimbalSheetHost(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                    Text("Motion Control", style = LiveType.ui(11.5f, FontWeight.SemiBold))
+                    Text(operatorText("Motion Control"), style = LiveType.ui(11.5f, FontWeight.SemiBold))
                     Text("${program.summary} · Experimental", color = LiveDesign.muted, style = LiveType.ui(9f))
                 }
                 MonitorIcon(MonitorIcon.CHEVRON_RIGHT, null, Modifier.size(15.dp), LiveDesign.accent)
@@ -565,7 +567,7 @@ private fun LiveGimbalEditor(model: GimbalChromeHost, program: GimbalProgram, ru
     ) {
         Row(Modifier.fillMaxWidth().height(48.dp).padding(horizontal = 12.dp).testTag("motion.header"),
             verticalAlignment = Alignment.CenterVertically) {
-            Text("MOTION CONTROL", color = LiveDesign.text,
+            Text(operatorText("MOTION CONTROL"), color = LiveDesign.text,
                 style = LiveType.ui(9f, FontWeight.SemiBold).copy(letterSpacing = 1.6.sp),
                 modifier = Modifier.weight(1f))
             Box(
@@ -576,7 +578,7 @@ private fun LiveGimbalEditor(model: GimbalChromeHost, program: GimbalProgram, ru
             ) {
                 MonitorIcon(
                     MonitorIcon.MINIMIZE,
-                    contentDescription = "Minimize",
+                    contentDescription = operatorText("Minimize"),
                     modifier = Modifier.size(16.dp),
                     tint = LiveDesign.text,
                 )
@@ -592,7 +594,7 @@ private fun LiveGimbalEditor(model: GimbalChromeHost, program: GimbalProgram, ru
         Column(
             Modifier.weight(1f).fillMaxWidth()
                 .testTag("motion.settings")
-                .semantics { if (moreBelow) stateDescription = "More settings below" }
+                .semantics { if (moreBelow) stateDescription = operatorText("More settings below") }
                 .monitorScrollFade(scroll)
                 .verticalScroll(scroll)
                 .padding(horizontal = 12.dp, vertical = 7.dp),
@@ -620,8 +622,8 @@ private fun LiveGimbalEditor(model: GimbalChromeHost, program: GimbalProgram, ru
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
             ) {
                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                    Text("Loop", color = LiveDesign.text, style = LiveType.ui(13f, FontWeight.SemiBold))
-                    Text("Repeat back and forth until Stop.", color = LiveDesign.secondary, style = LiveType.ui(9.5f))
+                    Text(operatorText("Loop"), color = LiveDesign.text, style = LiveType.ui(13f, FontWeight.SemiBold))
+                    Text(operatorText("Repeat back and forth until Stop."), color = LiveDesign.secondary, style = LiveType.ui(9.5f))
                 }
                 MonitorSwitchGraphic(program.loop)
             }
@@ -693,7 +695,7 @@ private fun waypointRow(
                     contentDescription = if (set) "Reset waypoint ${slot.letter}" else "Set waypoint ${slot.letter}"
                     role = Role.Button
                 }, contentAlignment = Alignment.Center) {
-                Text(if (set) "RESET" else "SET",
+                Text(operatorText(if (set) "RESET" else "SET"),
                     color = if (set) androidx.compose.ui.graphics.Color(0xFFDFE4E4)
                         else androidx.compose.ui.graphics.Color(0xFF08191F),
                     style = LiveType.ui(10f, FontWeight.Bold).copy(letterSpacing = .6.sp),
@@ -705,7 +707,7 @@ private fun waypointRow(
             if (set) {
                 Box(Modifier.size(44.dp).chromeClickable(onClick = { model.clearGimbalWaypoint(slot) }),
                     contentAlignment = Alignment.Center) {
-                    MonitorIcon(MonitorIcon.X, contentDescription = "Clear ${slot.letter}",
+                    MonitorIcon(MonitorIcon.X, contentDescription = operatorFormat("Clear %1\$s", slot.letter),
                         modifier = Modifier.size(12.dp), tint = LiveDesign.muted)
                 }
             }
@@ -750,7 +752,7 @@ private fun LiveGimbalRunPill(model: GimbalChromeHost, program: GimbalProgram, r
         verticalAlignment = Alignment.CenterVertically,
     ) {
         if (running && countdown == null) {
-            Text(if (paused) "RESUME" else "PAUSE", color = LiveDesign.text,
+            Text(operatorText(if (paused) "RESUME" else "PAUSE"), color = LiveDesign.text,
                 style = LiveType.ui(13f, FontWeight.Bold),
                 modifier = Modifier.testTag("motion.pauseResume")
                     .chromeClickable(onClick = {
@@ -772,7 +774,7 @@ private fun LiveGimbalRunPill(model: GimbalChromeHost, program: GimbalProgram, r
         ) {
             MonitorIcon(
                 MonitorIcon.MAXIMIZE,
-                contentDescription = "Expand Motion Control",
+                contentDescription = operatorText("Expand Motion Control"),
                 modifier = Modifier.size(16.dp),
                 tint = LiveDesign.text,
             )
@@ -812,7 +814,7 @@ private fun Chip(
         contentAlignment = Alignment.Center,
     ) {
         Text(
-            title,
+            operatorText(title),
             color = if (selected) LiveDesign.background else LiveDesign.text,
             style = LiveType.ui(if (compact) 12f else 13f, FontWeight.SemiBold),
         )

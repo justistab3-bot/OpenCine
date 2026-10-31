@@ -1,5 +1,6 @@
 package com.opencapture.opencine.cameracontrols
 
+import com.opencapture.monitorui.operatorText
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -63,7 +64,7 @@ fun <RowID, Request> MonitorIndependentSettingsPanel(
                     // A row without a request stays tappable so its host can explain the refusal.
                     Row(Modifier.fillMaxWidth().alpha(if (row.request == null) 0.35f else 1f),
                         horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
-                        Text(row.title, style = LiveType.ui(12f, FontWeight.SemiBold), color = LiveDesign.muted,
+                        Text(operatorText(row.title), style = LiveType.ui(12f, FontWeight.SemiBold), color = LiveDesign.muted,
                             modifier = Modifier.width(44.dp).semantics { heading() }.testTag("$identifier.title"))
                         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                             row.current?.takeUnless { it in row.options }?.let { current ->

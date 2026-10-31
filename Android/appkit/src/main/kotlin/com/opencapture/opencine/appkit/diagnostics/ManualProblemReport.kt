@@ -1,5 +1,6 @@
 package com.opencapture.opencine.appkit.diagnostics
 
+import com.opencapture.monitorui.operatorText
 import com.opencapture.opencine.appkit.diagnostics.ManualReportImages
 import android.content.Context
 import android.os.Handler
@@ -408,7 +409,7 @@ public class ManualProblemReport(
             val meta = readMeta() ?: return
             if (meta.eventId != eventId) return
             if (cancelled) {
-                meta.detail = "Waiting to send"
+                meta.detail = operatorText("Waiting to send")
                 writeMeta(meta)
                 publishLocked()
                 return

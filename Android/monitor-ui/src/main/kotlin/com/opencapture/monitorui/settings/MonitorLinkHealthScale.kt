@@ -1,5 +1,6 @@
 package com.opencapture.monitorui.settings
 
+import com.opencapture.monitorui.operatorText
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -61,9 +62,9 @@ fun MonitorLinkHealthScale(title: String, caption: String, score: Int) {
             .padding(13.dp),
         verticalArrangement = Arrangement.spacedBy(9.dp),
     ) {
-        Text(title, style = linkHealthText(13f, FontWeight.SemiBold), color = MonitorPalette.text)
+        Text(operatorText(title), style = linkHealthText(13f, FontWeight.SemiBold), color = MonitorPalette.text)
         Text(
-            caption,
+            operatorText(caption),
             style = linkHealthText(11.5f, FontWeight.Medium, mono = true),
             color = MonitorPalette.muted,
         )
@@ -72,7 +73,7 @@ fun MonitorLinkHealthScale(title: String, caption: String, score: Int) {
                 Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
                     if (slot == bandSlot) {
                         Text(
-                            bandLabel,
+                            operatorText(bandLabel),
                             style = linkHealthText(9.5f, FontWeight.Bold, mono = true),
                             color = bandColor,
                             letterSpacing = 0.5.sp,

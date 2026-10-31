@@ -1,5 +1,7 @@
 package com.opencapture.opencine.appkit
 
+import com.opencapture.monitorui.operatorFormat
+import com.opencapture.monitorui.operatorText
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -114,7 +116,7 @@ public fun CamerasScreen(
             MonitorCameraSection("NEARBY", CamerasMapping.nearby(model) + extraNearby, nearbyNote),
         ),
         key = { it.id },
-        emptyMessage = "Pair a new camera to start monitoring.",
+        emptyMessage = operatorText("Pair a new camera to start monitoring."),
         modifier = modifier,
         scanning = state.scanning,
         actions = {
@@ -177,10 +179,10 @@ public fun CamerasScreen(
         footer = {
             MonitorCameraFooter(onPrivacy, onTerms) {
                 MonitorCameraAction(
-                    text = "Pair a new camera",
+                    text = operatorText("Pair a new camera"),
                     primary = false,
                     enabled = !busy,
-                    contentDescription = "Pair a new camera",
+                    contentDescription = operatorText("Pair a new camera"),
                     onClick = {
                         model.select(null)
                         onPair()
@@ -223,54 +225,54 @@ public fun CamerasScreen(
         var text by remember(camera.id) { mutableStateOf(camera.name.orEmpty()) }
         AlertDialog(
             onDismissRequest = { renaming = null },
-            title = { Text("Rename camera") },
+            title = { Text(operatorText("Rename camera")) },
             text = {
                 Column {
-                    Text("Give this camera a name you'll recognize.")
-                    OutlinedTextField(value = text, onValueChange = { text = it }, label = { Text("Name") })
+                    Text(operatorText("Give this camera a name you'll recognize."))
+                    OutlinedTextField(value = text, onValueChange = { text = it }, label = { Text(operatorText("Name")) })
                 }
             },
             confirmButton = {
                 TextButton(onClick = {
                     model.rename(camera.id, text)
                     renaming = null
-                }) { Text("Save") }
+                }) { Text(operatorText("Save")) }
             },
-            dismissButton = { TextButton(onClick = { renaming = null }) { Text("Cancel") } },
+            dismissButton = { TextButton(onClick = { renaming = null }) { Text(operatorText("Cancel")) } },
         )
     }
     renamingSetup?.let { (cameraID, route) ->
         var text by remember(cameraID, route.id) { mutableStateOf(CamerasMapping.title(route)) }
         AlertDialog(
             onDismissRequest = { renamingSetup = null },
-            title = { Text("Rename setup") },
+            title = { Text(operatorText("Rename setup")) },
             text = {
                 Column {
-                    Text("Name this connection setup. Leave it blank to use the default name.")
-                    OutlinedTextField(value = text, onValueChange = { text = it }, label = { Text("Name") })
+                    Text(operatorText("Name this connection setup. Leave it blank to use the default name."))
+                    OutlinedTextField(value = text, onValueChange = { text = it }, label = { Text(operatorText("Name")) })
                 }
             },
             confirmButton = {
                 TextButton(enabled = !busy, onClick = {
                     if (!busy) model.renameRoute(route.id, cameraID, text)
                     renamingSetup = null
-                }) { Text("Save") }
+                }) { Text(operatorText("Save")) }
             },
-            dismissButton = { TextButton(onClick = { renamingSetup = null }) { Text("Cancel") } },
+            dismissButton = { TextButton(onClick = { renamingSetup = null }) { Text(operatorText("Cancel")) } },
         )
     }
     removing?.let { camera ->
         AlertDialog(
             onDismissRequest = { removing = null },
-            title = { Text("Remove camera?") },
-            text = { Text("This removes ${camera.displayName} from this phone. You can pair it again later.") },
+            title = { Text(operatorText("Remove camera?")) },
+            text = { Text(operatorFormat("This removes %1\$s from this phone. You can pair it again later.", camera.displayName)) },
             confirmButton = {
                 TextButton(onClick = {
                     removing = null
                     scope.launch { model.forget(camera.id) }
-                }) { Text("Remove") }
+                }) { Text(operatorText("Remove")) }
             },
-            dismissButton = { TextButton(onClick = { removing = null }) { Text("Cancel") } },
+            dismissButton = { TextButton(onClick = { removing = null }) { Text(operatorText("Cancel")) } },
         )
     }
 }
@@ -344,17 +346,17 @@ private fun CardOptions(camera: SavedCamera, enabled: Boolean, onRename: () -> U
         Box(
             Modifier.size(36.dp, 44.dp)
                 .clickable(enabled = enabled) { menu = true }
-                .semantics { contentDescription = "Options for ${camera.displayName}" },
+                .semantics { contentDescription = operatorFormat("Options for %1\$s", camera.displayName) },
             contentAlignment = Alignment.Center,
         ) {
             MonitorIcon(MonitorIcon.ELLIPSIS, null, Modifier.size(15.dp), tint = MonitorPalette.muted)
         }
         DropdownMenu(expanded = menu, onDismissRequest = { menu = false }) {
-            DropdownMenuItem(text = { Text("Rename") }, onClick = {
+            DropdownMenuItem(text = { Text(operatorText("Rename")) }, onClick = {
                 menu = false
                 onRename()
             })
-            DropdownMenuItem(text = { Text("Remove") }, onClick = {
+            DropdownMenuItem(text = { Text(operatorText("Remove")) }, onClick = {
                 menu = false
                 onRemove()
             })

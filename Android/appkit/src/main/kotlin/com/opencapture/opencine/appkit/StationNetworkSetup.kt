@@ -1,5 +1,6 @@
 package com.opencapture.opencine.appkit
 
+import com.opencapture.monitorui.operatorText
 import com.opencapture.opencine.core.RouteKind
 import com.opencapture.opencine.core.SavedCamera
 import android.content.Intent
@@ -598,7 +599,7 @@ public fun StationNetworkSetup(
                 SetupSectionHeader(stationText("HOTSPOT NAME", language))
                 SetupInput(
                     hotspotName, { hotspotTouched = true; hotspotName = it }, stationText("Hotspot name", language), !working,
-                    Modifier.testTag("stationSetup.hotspotName").semantics { contentDescription = "Hotspot name" },
+                    Modifier.testTag("stationSetup.hotspotName").semantics { contentDescription = operatorText("Hotspot name") },
                 )
                 if (phones.size > 1 || (phones.size == 1 && phones.single() != hotspotName)) {
                     val chips = rememberScrollState()

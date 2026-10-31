@@ -71,7 +71,7 @@ fun <Scale> MonitorFalseColorMenu(scales: List<Scale>, scale: Scale, onScale: (S
         }
     }
     if (reference != null) {
-        Text("REFERENCE KEY", style = MonitorTypography.text(8f, FontWeight.Medium).copy(letterSpacing = 1.sp),
+        Text(operatorText("REFERENCE KEY"), style = MonitorTypography.text(8f, FontWeight.Medium).copy(letterSpacing = 1.sp),
             color = MonitorPalette.faint, modifier = Modifier.padding(top = 10.dp, bottom = 6.dp))
         MonitorFalseColorReference(reference, Modifier.fillMaxWidth().height(52.dp).testTag("monitor.false-color.reference"))
     }

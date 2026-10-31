@@ -1,5 +1,6 @@
 package com.opencapture.opencine.appkit
 
+import com.opencapture.monitorui.operatorText
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -408,13 +409,13 @@ public fun monitorOperatorCapturePlacement(layout: MonitorFieldLayout, top: Bool
     Row(Modifier.fillMaxWidth().then(if (!showsClose) Modifier.height(MonitorLayoutPolicy.CAPTURE_HEADER_HEIGHT.dp) else Modifier),
         verticalAlignment = Alignment.CenterVertically) {
         Row(Modifier.weight(1f), verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(9.dp)) {
-            Text(title, style = MonitorTypography.text(9f, FontWeight.SemiBold).copy(letterSpacing = 1.8.sp), maxLines = 1)
-            Text(subtitle.uppercase(), style = MonitorTypography.text(8.5f).copy(letterSpacing = 1.19.sp),
+            Text(operatorText(title), style = MonitorTypography.text(9f, FontWeight.SemiBold).copy(letterSpacing = 1.8.sp), maxLines = 1)
+            Text(operatorText(subtitle.uppercase()), style = MonitorTypography.text(8.5f).copy(letterSpacing = 1.19.sp),
                 color = MonitorPalette.faint, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.padding(bottom = 2.dp))
         }
         if (showsClose) Box(Modifier.size(44.dp).monitorChromeClickable(enabled = enabled, onClick = onClose,
             onClickFeedback = { haptics.selection() }).testTag("monitor.capture.close")
-            .semantics { contentDescription = "Close camera control" }, contentAlignment = Alignment.Center) {
+            .semantics { contentDescription = operatorText("Close camera control") }, contentAlignment = Alignment.Center) {
             MonitorIcon(MonitorIcon.X, null, Modifier.size(13.dp), MonitorPalette.muted)
         }
     }

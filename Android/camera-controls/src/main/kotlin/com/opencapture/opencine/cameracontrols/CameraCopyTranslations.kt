@@ -136,4 +136,4 @@ private val CAMERA_CATALOG: CopyCatalog =
     CopyCatalog(mapOf(CopyLanguage.SIMPLIFIED_CHINESE to CameraCopyTranslations.simplifiedChinese))
 
 /** [english] in the operator's language, or [english] itself when the table has no row for it. */
-internal fun cameraText(english: String): String = CAMERA_CATALOG.text(english, CopyLanguage.preferred())
+internal fun cameraText(english: String): String = CAMERA_CATALOG.text(english, CopyLanguage.preferred()).let { if (it == english) com.opencapture.monitorui.operatorText(english) else it }

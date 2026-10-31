@@ -1,5 +1,6 @@
 package com.opencapture.opencine.appkit
 
+import com.opencapture.monitorui.operatorText
 import androidx.compose.runtime.Composable
 import com.opencapture.monitorui.MonitorPairingCheck
 import com.opencapture.monitorui.MonitorPairingCheckState
@@ -52,7 +53,7 @@ public data class PairingWizard(
             "PAIRING" -> stationText("Pairing…")
             "AWAITING_APPROVAL" -> stationText("Approve on the camera screen")
             "READING_WIFI_CREDS" -> stationText("Reading Wi-Fi credentials…")
-            "JOINING_WIFI" -> stationText("Joining camera Wi-Fi…")
+            "JOINING_WIFI" -> stationText(operatorText("Joining…"))
             "OPENING_DATALINK" -> stationText("Opening datalink…")
             "LIVE" -> stationText("Connected")
             else -> stationText("Idle")

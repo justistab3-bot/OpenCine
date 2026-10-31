@@ -1,5 +1,6 @@
 package com.opencapture.monitorui.settings
 
+import com.opencapture.monitorui.operatorText
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -64,7 +65,7 @@ private fun Modifier.settingsClickable(role: Role, enabled: Boolean = true, onCl
 
 @Composable
 public fun MonitorSettingsTextAction(title: String, color: Color = MonitorPalette.accent, onClick: () -> Unit) {
-    Text(title, style = MonitorTypography.text(13f, FontWeight.SemiBold), color = color,
+    Text(operatorText(title), style = MonitorTypography.text(13f, FontWeight.SemiBold), color = color,
         modifier = Modifier.settingsClickable(role = Role.Button, onClick = onClick))
 }
 
@@ -96,7 +97,7 @@ public fun MonitorSettingsActionPill(
             MonitorIcon(icon = it, contentDescription = null, tint = tint, modifier = Modifier.size(13.dp))
         }
         Text(
-            title.uppercase(),
+            operatorText(title.uppercase()),
             style = chromeStyle(10.5f, FontWeight.Bold, mono = true),
             color = tint,
             maxLines = 1,
@@ -222,7 +223,7 @@ public fun MonitorSettingsGroupCard(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
-                    title,
+                    operatorText(title),
                     style = chromeStyle(13f, FontWeight.SemiBold),
                     color = MonitorPalette.text,
                 )
@@ -240,7 +241,7 @@ public fun MonitorSettingsGroupCard(
                 }
             }
             Text(
-                caption,
+                operatorText(caption),
                 style = chromeStyle(11.5f, FontWeight.Normal),
                 color = MonitorPalette.muted,
                 maxLines = captionMaxLines,
@@ -270,7 +271,7 @@ public fun MonitorSettingsDisplayToggle(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
-            title,
+            operatorText(title),
             style = chromeStyle(11.5f, FontWeight.SemiBold),
             color = MonitorPalette.text,
             maxLines = 1,

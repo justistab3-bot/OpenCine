@@ -199,7 +199,7 @@ fun MonitorZoomDisc(initial: Double, maximum: Double, label: (Double) -> String,
                     alpha = motion }
                 .monitorMaterial(MonitorMaterial.Zoom, MonitorZoomDiscShape(attachment))) {
                 Canvas(Modifier.fillMaxSize().semantics {
-                    contentDescription = "Zoom ${MonitorZoomScale.dialLabel(factor, maximum = maxZoom)}"
+                    contentDescription = operatorFormat("Zoom %1\$s", MonitorZoomScale.dialLabel(factor, maximum = maxZoom))
                     progressBarRangeInfo = ProgressBarRangeInfo(position.toFloat(), 0f..1f)
                     setProgress { update(it.toDouble(), accessibility = true); true }
                     customActions = listOf(CustomAccessibilityAction("Close zoom") { closing = true; true })

@@ -1,5 +1,6 @@
 package com.opencapture.opencine.cameracontrols
 
+import com.opencapture.monitorui.operatorText
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateOffsetAsState
 import androidx.compose.animation.core.snap
@@ -143,7 +144,7 @@ fun MonitorChromeButton(
 
 @Composable
 fun LockButton(locked: Boolean, modifier: Modifier = Modifier, enabled: Boolean = true, onClick: () -> Unit) {
-    LockButton(locked, if (locked) "Unlock monitor controls" else "Lock monitor controls",
+    LockButton(locked, if (locked) operatorText("Unlock monitor controls") else operatorText("Lock monitor controls"),
         modifier, enabled, onClick)
 }
 
@@ -176,7 +177,7 @@ fun LiveAutoExposureUnlockButton(modifier: Modifier = Modifier, onClick: () -> U
             .background(Color.Black.copy(alpha = 0.55f))
             .border(1.dp, LiveDesign.hairline, CircleShape)
             .chromeClickable(onClick = onClick)
-            .semantics { contentDescription = "Unlock exposure" },
+            .semantics { contentDescription = operatorText("Unlock exposure") },
         horizontalArrangement = Arrangement.spacedBy(2.dp, Alignment.CenterHorizontally),
         verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -214,7 +215,7 @@ fun LiveGimbalStick(
     Box(
         modifier
             .fillMaxSize()
-            .semantics { contentDescription = "Gimbal stick" }
+            .semantics { contentDescription = operatorText("Gimbal stick") }
             .pointerInput(enabled) {
                 if (!enabled) return@pointerInput
                 var taps = 0

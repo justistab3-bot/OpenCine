@@ -50,7 +50,7 @@ fun MonitorFalseColorReference(values: MonitorFalseColorReferenceValues, modifie
             }
         }
         Text(
-            "False Color",
+            operatorText("False Color"),
             color = MonitorPalette.text,
             fontSize = 8.5.sp,
             lineHeight = 10.sp,

@@ -1,5 +1,6 @@
 package com.opencapture.opencine.cameracontrols
 
+import com.opencapture.monitorui.operatorText
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.gestures.snapping.SnapPosition
@@ -156,7 +157,7 @@ private fun RecordingSetupPanel(
                 ) {
                     categories()
                 }
-                if (status.isRecording) Text("Stop recording to change mode.", color = LiveDesign.muted, style = LiveType.text(11f))
+                if (status.isRecording) Text(operatorText("Stop recording to change mode."), color = LiveDesign.muted, style = LiveType.text(11f))
                 if (!chromeless && com.opencapture.monitorui.MonitorLayoutPolicy.showsCaptureGrabber(preview != null, fromTop = true)) {
                     com.opencapture.monitorui.MonitorPanelGrabber()
                 }
@@ -724,7 +725,7 @@ private fun LiveControlSheetContent(
                             applyDrum(it)
                         },
                     )
-                    if (status.isRecording) Text("Stop recording to change mode.",
+                    if (status.isRecording) Text(operatorText("Stop recording to change mode."),
                         color = LiveDesign.muted, style = LiveType.text(11f))
                 }
             }
@@ -819,7 +820,7 @@ private fun AudioBody(status: CameraStatus, enabled: Boolean, selectedMode: Int,
     val sourceID = remember(host) { service?.sourceID }
     var refusal by remember(host) { mutableStateOf<String?>(null) }
     val field = service?.fields?.getOrNull(selectedMode)
-    if (field == null) Text("Audio controls unavailable", color = LiveDesign.faint)
+    if (field == null) Text(operatorText("Audio controls unavailable"), color = LiveDesign.faint)
     else CheckedRows(field.choices.map { it.label }, field.observed?.label,
         enabled && field.isEditable && service?.sourceID == sourceID) { label ->
         val current = host.audioService

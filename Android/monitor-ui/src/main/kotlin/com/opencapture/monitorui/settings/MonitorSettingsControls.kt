@@ -1,5 +1,6 @@
 package com.opencapture.monitorui.settings
 
+import com.opencapture.monitorui.operatorText
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
@@ -77,7 +78,7 @@ fun MonitorSettingsRowCard(
                     .heightIn(min = com.opencapture.monitorui.MonitorLayoutPolicy.SETTINGS_TITLE_MIN_HEIGHT.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Text(title, style = chromeStyle(13f, FontWeight.SemiBold), color = MonitorPalette.text)
+                Text(operatorText(title), style = chromeStyle(13f, FontWeight.SemiBold), color = MonitorPalette.text)
                 Spacer(Modifier.weight(1f))
                 if (onReset != null) MonitorSettingsResetButton(onClick = onReset)
             }
@@ -127,7 +128,7 @@ private fun SettingsInlineRowLayout(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                title,
+                operatorText(title),
                 style = chromeStyle(12.5f, FontWeight.SemiBold),
                 color = MonitorPalette.text,
                 maxLines = if (stacked) 2 else 1,
@@ -164,7 +165,7 @@ private fun SettingsInlineRowLayout(
         }
         if (inspectorHelp == true && !help.isNullOrEmpty()) {
             Text(
-                help,
+                operatorText(help),
                 modifier = Modifier.fillMaxWidth().padding(bottom = 10.dp),
                 style = chromeStyle(10f, FontWeight.Normal),
                 color = MonitorPalette.muted,
@@ -234,7 +235,7 @@ fun MonitorSettingsHelpBadge(text: String) {
                         .padding(12.dp),
                 ) {
                     Text(
-                        text,
+                        operatorText(text),
                         style = chromeStyle(12f, FontWeight.Normal),
                         color = MonitorPalette.text,
                     )

@@ -307,7 +307,7 @@ private fun CommandHeroBand(hero: MonitorStatusPresentation, portrait: Boolean) 
         Modifier
             .fillMaxWidth()
             .height(commandHeroHeightDp(portrait).dp)
-            .semantics(mergeDescendants = true) { contentDescription = "Timecode $description" }
+            .semantics(mergeDescendants = true) { contentDescription = operatorFormat("Timecode %1\$s", description) }
             .testTag("monitor.command.hero"),
         horizontalArrangement = Arrangement.spacedBy(11.dp),
         verticalAlignment = Alignment.CenterVertically,
@@ -700,7 +700,7 @@ private fun <K : Any, R : Any> CommandSideColumn(
                     Modifier
                         .align(Alignment.BottomCenter)
                         .padding(bottom = 3.dp)
-                        .semantics { contentDescription = "More command controls below. Swipe up to reveal them." },
+                        .semantics { contentDescription = operatorText("More command controls below. Swipe up to reveal them.") },
             )
         }
     }

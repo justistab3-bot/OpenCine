@@ -1,5 +1,6 @@
 package com.opencapture.opencine.cameracontrols
 
+import com.opencapture.monitorui.operatorText
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -91,7 +92,7 @@ fun ModeBar(
                 Modifier.weight(1f).then(if (off) Modifier.alpha(0.35f) else Modifier), enabled = enabled && !off,
                 separator = index > 0, accessibilityLabel = title, horizontalPadding = 0.dp) {
                 val label = @Composable {
-                    Text(if (uppercase) title.uppercase() else title,
+                    Text(operatorText(if (uppercase) title.uppercase() else title),
                         style = LiveType.ui(11f, FontWeight.SemiBold).copy(letterSpacing = .44.sp),
                         color = if (active) LiveDesign.accent else LiveDesign.muted, maxLines = 1,
                         textAlign = TextAlign.Center)
@@ -141,8 +142,8 @@ fun PrefToggle(
         .alpha(if (enabled || preview != null) 1f else .45f),
         verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-            Text(title, style = LiveType.ui(11.5f, FontWeight.SemiBold))
-            Text(help, style = LiveType.ui(9.5f).copy(lineHeight = 13.3.sp), color = LiveDesign.faint)
+            Text(operatorText(title), style = LiveType.ui(11.5f, FontWeight.SemiBold))
+            Text(operatorText(help), style = LiveType.ui(9.5f).copy(lineHeight = 13.3.sp), color = LiveDesign.faint)
         }
         CaptureSwitchGraphic(checked)
     }
@@ -194,7 +195,7 @@ fun CaptureDrumWheel(
 fun FocusBody(status: CameraStatus, labels: List<String> = CaptureFocusChoices.labels, enabled: Boolean, onSelect: (String) -> Unit) {
     Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         CaptureDrumWheel(labels, CaptureFocusChoices.selection(status, labels), interactive = enabled, onSelect = onSelect)
-        Text("AF-S focuses once. AF-C follows focus continuously; the other modes use the camera's supported tracking modes.",
+        Text(operatorText("AF-S focuses once. AF-C follows focus continuously; the other modes use the camera's supported tracking modes."),
             style = LiveType.ui(9.5f).copy(lineHeight = 13.3.sp), color = LiveDesign.faint)
     }
 }

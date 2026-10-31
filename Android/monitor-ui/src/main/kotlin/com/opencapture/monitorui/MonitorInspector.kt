@@ -127,7 +127,7 @@ fun MonitorInspector(
     val padTop = if (frame.portrait && trailing) 4f else max(4f, safeTop)
     val padBottom = if (frame.portrait && trailing) 4f else max(4f, safeBottom)
     Box(modifier.fillMaxSize().pointerInput(onDismiss) { detectTapGestures { onDismiss() } }
-        .semantics { contentDescription = "Dismiss $title"; role = Role.Button }) {
+        .semantics { contentDescription = operatorFormat("Dismiss %1\$s", title); role = Role.Button }) {
         Box(
             Modifier.align(alignment).width(frame.width.dp).height(frame.height.dp)
                 .clip(GenericShape { size, _ ->
@@ -165,14 +165,14 @@ fun MonitorInspector(
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Text(
-                            title,
+                            operatorText(title),
                             modifier = Modifier.weight(1f),
                             style = MonitorTypography.text(14f, FontWeight.SemiBold),
                             maxLines = 1,
                         )
                         if (helpVisible != null) Box(
                             Modifier.size(44.dp).clickable(onClick = onToggleHelp).semantics {
-                                contentDescription = "Show option help"
+                                contentDescription = operatorText("Show option help")
                                 stateDescription = if (helpVisible) "On" else "Off"
                                 role = Role.Button
                             },
@@ -185,7 +185,7 @@ fun MonitorInspector(
                         }
                         if (close != null) close() else Box(
                             Modifier.size(44.dp).clickable(onClick = onDismiss).semantics {
-                                contentDescription = "Close $title"; role = Role.Button
+                                contentDescription = operatorFormat("Close %1\$s", title); role = Role.Button
                             },
                             contentAlignment = Alignment.Center,
                         ) {

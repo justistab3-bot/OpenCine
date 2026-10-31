@@ -55,17 +55,17 @@ fun MonitorMediaDeliveryProgressPanel(
         details.filename?.let { filename ->
             Row(horizontalArrangement = Arrangement.spacedBy(6.dp),
                 modifier = Modifier.testTag("monitor.share.progress.filename")) {
-                Text("File", style = MonitorTypography.text(10f, FontWeight.SemiBold), color = MonitorPalette.muted)
+                Text(operatorText("File"), style = MonitorTypography.text(10f, FontWeight.SemiBold), color = MonitorPalette.muted)
                 Text(filename, Modifier.weight(1f), style = MonitorTypography.readout(11f),
                     color = MonitorPalette.text, maxLines = 1, overflow = TextOverflow.Ellipsis)
             }
         }
         details.destination?.let { destination ->
-            Text("Destination: $destination", style = MonitorTypography.text(11f), color = MonitorPalette.muted,
+            Text(operatorFormat("Destination: %1\$s", destination), style = MonitorTypography.text(11f), color = MonitorPalette.muted,
                 modifier = Modifier.testTag("monitor.share.progress.destination"))
         }
         onCollapse?.let { collapse ->
-            Text("Collapse", style = MonitorTypography.text(12f, FontWeight.SemiBold), color = MonitorPalette.accent,
+            Text(operatorText("Collapse"), style = MonitorTypography.text(12f, FontWeight.SemiBold), color = MonitorPalette.accent,
                 modifier = Modifier.align(Alignment.End).monitorChromeClickable(onClick = collapse)
                     .testTag("monitor.share.progress.collapse"))
         }
@@ -87,11 +87,11 @@ internal fun MonitorMediaDeliveryProgressContent(
         } else {
             ProgressStatus(value, showsInlineProgress,
                 Modifier.weight(1f).monitorChromeClickable(onClick = onExpand)
-                    .semantics { onClick(label = "Expand delivery progress") { onExpand(); true } }
+                    .semantics { onClick(label = operatorText("Expand delivery progress")) { onExpand(); true } }
                     .testTag("monitor.share.progress.expand"), destinationIcon)
         }
         onCancel?.let {
-            Text("Cancel", style = MonitorTypography.text(11f, FontWeight.SemiBold), color = MonitorPalette.muted,
+            Text(operatorText("Cancel"), style = MonitorTypography.text(11f, FontWeight.SemiBold), color = MonitorPalette.muted,
                 modifier = Modifier.monitorChromeClickable(onClick = it))
         }
     }

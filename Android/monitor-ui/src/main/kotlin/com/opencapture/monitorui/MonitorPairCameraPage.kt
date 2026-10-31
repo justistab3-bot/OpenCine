@@ -344,7 +344,7 @@ private fun PairingStepRow(
             )
             .padding(horizontal = 9.dp)
             .semantics(mergeDescendants = true) {
-                contentDescription = "Step ${index + 1}: ${step.title}, $status"
+                contentDescription = operatorFormat("Step %1\$d: %2\$s, %3\$s", index + 1, step.title, operatorText(status))
             },
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(
@@ -507,7 +507,7 @@ private fun PairingDeviceRow(device: MonitorPairingDevice, onSelect: (String) ->
             )
             .clickable(enabled = !device.busy, role = Role.Button, onClick = { onSelect(device.id) })
             .testTag("pair.device.${device.id}")
-            .semantics { contentDescription = "Connect ${device.name}" }
+            .semantics { contentDescription = operatorFormat("Connect %1\$s", device.name) }
             .padding(horizontal = 13.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(11.dp),
@@ -709,7 +709,7 @@ private fun PairingSignalBars(count: Int) {
     Row(
         verticalAlignment = Alignment.Bottom,
         horizontalArrangement = Arrangement.spacedBy(2.dp),
-        modifier = Modifier.semantics { contentDescription = "Signal $bars of 4" },
+        modifier = Modifier.semantics { contentDescription = operatorFormat("Signal %1\$d of 4", bars) },
     ) {
         repeat(4) { index ->
             Box(

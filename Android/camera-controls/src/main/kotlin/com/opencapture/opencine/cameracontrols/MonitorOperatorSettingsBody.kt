@@ -1,5 +1,6 @@
 package com.opencapture.opencine.cameracontrols
 
+import com.opencapture.monitorui.operatorText
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -185,7 +186,7 @@ private fun SessionAssistSettings(source: MonitorOperatorPictureSettings.Session
     MonitorSettingsRowCard("View Assist") {
         source.availableAssistTools.forEach { tool ->
             MonitorSettingsSwitchInlineRow(tool.title, assist.isOn(tool),
-                help = "Apply this monitor tool to the displayed picture.", testTag = "monitor.assist.${tool.name}") {
+                help = operatorText("Apply this monitor tool to the displayed picture."), testTag = "monitor.assist.${tool.name}") {
                 assist.toggle(tool)
             }
             if (tool !in setOf(MonitorAssistTool.EV, MonitorAssistTool.LEVEL) &&

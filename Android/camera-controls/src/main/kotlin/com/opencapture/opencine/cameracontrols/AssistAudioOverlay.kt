@@ -1,5 +1,6 @@
 package com.opencapture.opencine.cameracontrols
 
+import com.opencapture.monitorui.operatorText
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -62,7 +63,7 @@ public fun AssistAudioOverlay(state: MonitorAssistState, levels: MonitorAudioMet
     AssistAudioPanel(state, base, canvas, placement, locked, null, panelPlacement, feed,
         portraitOverride) {
         Column(Modifier.fillMaxSize().clearAndSetSemantics {
-            contentDescription = "Audio levels"
+            contentDescription = operatorText("Audio levels")
             if (spokenValue != null) stateDescription = spokenValue
             else if (levels == null) stateDescription = "Audio levels unavailable"
         }, horizontalAlignment = Alignment.CenterHorizontally) {

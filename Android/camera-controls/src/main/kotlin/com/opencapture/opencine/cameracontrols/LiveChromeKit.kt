@@ -1,5 +1,6 @@
 package com.opencapture.opencine.cameracontrols
 
+import com.opencapture.monitorui.operatorText
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -80,7 +81,7 @@ fun LivePopupCloseButton(
             .size(size)
             .monitorGlass(CircleShape)
             .chromeClickable(onClick = onClick)
-            .semantics { contentDescription = "Close" },
+            .semantics { contentDescription = operatorText("Close") },
         contentAlignment = Alignment.Center,
     ) {
         MonitorIcon(

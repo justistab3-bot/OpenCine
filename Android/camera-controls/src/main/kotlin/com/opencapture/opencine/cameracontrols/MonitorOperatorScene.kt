@@ -1,5 +1,6 @@
 package com.opencapture.opencine.cameracontrols
 
+import com.opencapture.monitorui.operatorText
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -235,7 +236,7 @@ private fun <P, L> MonitorOperatorPage(shell: ShellModel, cover: ShellModel.Cove
                 thumbnail = thumbnail, playbackPicture = playbackPicture)
         } else {
             Column(Modifier.fillMaxSize().background(MonitorPalette.backgroundDeep).padding(24.dp)) {
-                Text("No media service is available for this camera.", color = MonitorPalette.muted)
+                Text(operatorText("No media service is available for this camera."), color = MonitorPalette.muted)
                 MonitorSettingsActionPill("Back", modifier = Modifier.testTag("monitor.page.back"), onClick = shell::dismissCover)
             }
         }

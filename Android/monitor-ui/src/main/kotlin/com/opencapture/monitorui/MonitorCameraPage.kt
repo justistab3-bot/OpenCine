@@ -105,7 +105,7 @@ fun <T> MonitorCameraPage(
                 )
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                     Text(
-                        title,
+                        operatorText(title),
                         color = MonitorPalette.text,
                         style = MonitorTypography.text(
                             MonitorLayoutPolicy.cameraPageTitleSize(tablet),
@@ -138,7 +138,7 @@ fun <T> MonitorCameraPage(
                         horizontalArrangement = Arrangement.spacedBy(9.dp),
                     ) {
                         Text(
-                            section.title,
+                            operatorText(section.title),
                             color = MonitorPalette.faint,
                             style = MonitorTypography.text(8.5f, FontWeight.Bold)
                                 .copy(letterSpacing = 1.7.sp),
@@ -146,7 +146,7 @@ fun <T> MonitorCameraPage(
                         )
                         if (section.note.isNotEmpty()) {
                             Text(
-                                section.note,
+                                operatorText(section.note),
                                 color = MonitorPalette.faint,
                                 style = MonitorTypography.text(9f).copy(letterSpacing = 0.9.sp),
                                 maxLines = 1,
@@ -169,12 +169,12 @@ fun <T> MonitorCameraPage(
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
                     Text(
-                        emptyTitle,
+                        operatorText(emptyTitle),
                         color = MonitorPalette.text,
                         style = MonitorTypography.text(15f, FontWeight.SemiBold),
                     )
                     Text(
-                        emptyMessage,
+                        operatorText(emptyMessage),
                         color = MonitorPalette.muted,
                         style = MonitorTypography.text(12f),
                     )
@@ -358,7 +358,7 @@ fun MonitorCameraCard(
 private fun MonitorCameraScanStatus(fullLabels: Boolean) {
     val phase = monitorPulsePhase(1400)
     Row(
-        Modifier.semantics(mergeDescendants = true) { contentDescription = "Scanning for cameras" },
+        Modifier.semantics(mergeDescendants = true) { contentDescription = operatorText("Scanning for cameras") },
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(6.dp),
     ) {
@@ -370,7 +370,7 @@ private fun MonitorCameraScanStatus(fullLabels: Boolean) {
         )
         if (fullLabels) {
             Text(
-                "SCANNING",
+                operatorText("SCANNING"),
                 color = MonitorPalette.accent,
                 style = MonitorTypography.text(9.5f, FontWeight.Bold).copy(letterSpacing = 1.1.sp),
                 maxLines = 1,
@@ -409,14 +409,14 @@ fun MonitorCameraAction(
                 },
             )
             .clickable(enabled = enabled, role = Role.Button, onClick = onClick)
-            .semantics { this.contentDescription = contentDescription }
+            .semantics { this.contentDescription = operatorText(contentDescription) }
             .padding(horizontal = 17.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(7.dp, Alignment.CenterHorizontally),
     ) {
         icon?.invoke(ink)
         Text(
-            text,
+            operatorText(text),
             color = ink,
             style = MonitorTypography.text(13f, FontWeight.SemiBold),
             maxLines = 1,

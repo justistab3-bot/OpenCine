@@ -1,5 +1,6 @@
 package com.opencapture.monitorui.settings
 
+import com.opencapture.monitorui.operatorText
 import androidx.compose.runtime.Composable
 
 /** Common touch safety choices with storage and optional domain copy supplied by the host. */
@@ -12,15 +13,15 @@ public fun MonitorOperatorSafetySettings(
     keepScreenAwakeHelp: String = "Prevents auto-lock while this app is open. A monitor should stay lit.",
     feedback: () -> Unit = {},
 ) {
-    MonitorSettingsRowCard(title = "Touch & safety") {
+    MonitorSettingsRowCard(title = operatorText("Touch & safety")) {
         MonitorSettingsSwitchInlineRow(
-            title = "Record confirmation", help = "Ask before starting or stopping recording to prevent mistaps.",
+            title = operatorText("Record confirmation"), help = operatorText("Ask before starting or stopping recording to prevent mistaps."),
             showTopDivider = false, isOn = recordConfirmation,
         ) { feedback(); onRecordConfirmation(!recordConfirmation) }
-        MonitorSettingsSwitchInlineRow(title = "Haptics", help = hapticsHelp, isOn = haptics) {
+        MonitorSettingsSwitchInlineRow(title = operatorText("Haptics"), help = hapticsHelp, isOn = haptics) {
             feedback(); onHaptics(!haptics)
         }
-        MonitorSettingsSwitchInlineRow(title = "Keep screen awake", help = keepScreenAwakeHelp, isOn = keepScreenAwake) {
+        MonitorSettingsSwitchInlineRow(title = operatorText("Keep screen awake"), help = keepScreenAwakeHelp, isOn = keepScreenAwake) {
             feedback(); onKeepScreenAwake(!keepScreenAwake)
         }
     }
@@ -30,8 +31,8 @@ public fun MonitorOperatorSafetySettings(
 @Composable
 public fun MonitorPanelSettings(hdrDisplay: Boolean, help: String,
     onChange: (Boolean) -> Unit, feedback: () -> Unit = {}) {
-    MonitorSettingsRowCard(title = "Panel") {
-        MonitorSettingsSwitchInlineRow(title = "HDR display", help = help, showTopDivider = false, isOn = hdrDisplay) {
+    MonitorSettingsRowCard(title = operatorText("Panel")) {
+        MonitorSettingsSwitchInlineRow(title = operatorText("HDR display"), help = help, showTopDivider = false, isOn = hdrDisplay) {
             feedback(); onChange(!hdrDisplay)
         }
     }

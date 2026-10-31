@@ -1,5 +1,7 @@
 package com.opencapture.opencine.appkit
 
+import com.opencapture.monitorui.operatorFormat
+import com.opencapture.monitorui.operatorText
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -146,8 +148,8 @@ public fun MonitorChromeEditBanner(
     ) {
         MonitorIcon(MonitorIcon.EYE, null, Modifier.size(11.dp), MonitorPalette.accent)
         Column(verticalArrangement = Arrangement.spacedBy(1.dp)) {
-            Text("Editing $modeTitle", color = MonitorPalette.text, style = MonitorTypography.text(11.5f, FontWeight.SemiBold))
-            Text("Tap an eye to show or hide it", color = MonitorPalette.muted, style = MonitorTypography.text(10f))
+            Text(operatorFormat("Editing %1\$s", operatorText(modeTitle)), color = MonitorPalette.text, style = MonitorTypography.text(11.5f, FontWeight.SemiBold))
+            Text(operatorText("Tap an eye to show or hide it"), color = MonitorPalette.muted, style = MonitorTypography.text(10f))
         }
         Box(
             Modifier
@@ -157,7 +159,7 @@ public fun MonitorChromeEditBanner(
                 .monitorChromeClickable(onClickFeedback = { haptics.selection() }, onClick = onDone)
                 .padding(horizontal = 12.dp, vertical = 6.dp),
         ) {
-            Text("Done", color = MonitorPalette.background, style = MonitorTypography.text(11.5f, FontWeight.Bold))
+            Text(operatorText("Done"), color = MonitorPalette.background, style = MonitorTypography.text(11.5f, FontWeight.Bold))
         }
     }
 }
